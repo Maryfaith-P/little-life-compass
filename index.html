@@ -1,0 +1,2894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#fdf2f8" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>Little Life Compass ✨ — Personal Ledger & Life Sanctuary</title>
+  <!-- Self-contained Pink Compass Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='128' fill='%23fdf2f8'/%3E%3Ccircle cx='256' cy='256' r='190' fill='none' stroke='%23ec4899' stroke-width='24'/%3E%3Cpolygon points='256,100 300,240 256,220' fill='%23ec4899'/%3E%3Cpolygon points='256,100 212,240 256,220' fill='%23db2777'/%3E%3Cpolygon points='256,412 300,272 256,292' fill='%23f472b6'/%3E%3Cpolygon points='256,412 212,272 256,292' fill='%23fbcfe8'/%3E%3Ccircle cx='256' cy='256' r='24' fill='%239d174d'/%3E%3C/svg%3E">
+<link rel="shortcut icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='128' fill='%23fdf2f8'/%3E%3Ccircle cx='256' cy='256' r='190' fill='none' stroke='%23ec4899' stroke-width='24'/%3E%3Cpolygon points='256,100 300,240 256,220' fill='%23ec4899'/%3E%3Cpolygon points='256,100 212,240 256,220' fill='%23db2777'/%3E%3Cpolygon points='256,412 300,272 256,292' fill='%23f472b6'/%3E%3Cpolygon points='256,412 212,272 256,292' fill='%23fbcfe8'/%3E%3Ccircle cx='256' cy='256' r='24' fill='%239d174d'/%3E%3C/svg%3E">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#ec4899">
+<link rel="manifest" href="./manifest.json?v=5">
+  
+  <!-- Fonts: Quicksand (Clean & Modern) and Caveat (Handwritten Aesthetic) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Quicksand:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg-soft: #fcf8fa;
+      --card-bg: #ffffff;
+      --text-dark: #1e293b;
+      --text-muted: #64748b;
+      --pink-primary: #f43f6e;
+      --pink-soft: #fdf2f8;
+      --pink-border: #fbcfe8;
+      --pink-hover: #e11d48;
+      --blue-primary: #0284c7;
+      --blue-soft: #f0f9ff;
+      --blue-border: #bae6fd;
+      --green-primary: #059669;
+      --green-soft: #f0fdf4;
+      --border-radius: 18px;
+      --shadow-sm: 0 4px 12px rgba(244, 63, 110, 0.05);
+      --shadow-md: 0 10px 25px rgba(244, 63, 110, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--bg-soft);
+      color: var(--text-dark);
+      line-height: 1.45;
+      padding-bottom: 70px;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Top Sticky Header */
+    .top-header {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 99;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      border-bottom: 1.5px solid var(--pink-border);
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-icon {
+      font-size: 20px;
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 15px;
+      color: var(--pink-primary);
+      letter-spacing: -0.3px;
+    }
+
+    .brand-subtitle {
+      font-size: 9.5px;
+      color: var(--text-muted);
+      display: block;
+      margin-top: -2px;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      background: #fff;
+      border: 1.5px solid var(--pink-border);
+      border-radius: 12px;
+      padding: 6px 10px;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 700;
+      color: var(--pink-primary);
+      transition: all 0.2s ease;
+    }
+
+    .icon-btn:hover {
+      background: var(--pink-soft);
+      transform: translateY(-1px);
+    }
+
+    /* Navigation Drawer */
+    .drawer-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .drawer-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .drawer-menu {
+      position: fixed;
+      top: 0;
+      left: -290px;
+      width: 280px;
+      height: 100%;
+      background: #ffffff;
+      z-index: 1001;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 4px 0 24px rgba(0, 0, 0, 0.1);
+      transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-y: auto;
+    }
+
+    .drawer-menu.open {
+      left: 0;
+    }
+
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1.5px solid #f1f5f9;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      background: var(--pink-soft);
+      color: var(--pink-primary);
+    }
+
+    /* Layout & Cards */
+    .content-container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 16px 14px;
+    }
+
+    .section-view {
+      display: none;
+      animation: fadeInView 0.25s ease forwards;
+    }
+
+    .section-view.active-view {
+      display: block;
+    }
+
+    @keyframes fadeInView {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1.5px solid #f3e8ee;
+      border-radius: var(--border-radius);
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-title {
+      font-weight: 800;
+      font-size: 13.5px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 8px;
+    }
+
+    .stat-box {
+      background: #faf8f9;
+      border: 1px solid #f3e8ee;
+      border-radius: 14px;
+      padding: 10px 12px;
+      text-align: center;
+    }
+
+    .stat-box.highlight {
+      background: #fff0f5;
+      border-color: #fbcfe8;
+    }
+
+    .stat-box.safe-pocket {
+      background: var(--green-soft);
+      border-color: #bbf7d0;
+    }
+
+    .stat-label {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2px;
+    }
+
+    .stat-val {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-top: 3px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 8px;
+      font-size: 10.5px;
+      font-weight: 800;
+      border: 1px solid transparent;
+    }
+
+    /* Buttons & Form Elements */
+    .pink-btn {
+      background: var(--pink-primary);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .pink-btn:hover {
+      background: var(--pink-hover);
+      transform: translateY(-1px);
+    }
+
+    .del-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 2px 6px;
+    }
+
+    .del-btn:hover {
+      color: #ef4444;
+    }
+
+    input[type="text"], input[type="number"], input[type="date"], input[type="password"], select {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--pink-primary);
+    }
+
+    .input-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .input-row > * {
+      flex: 1;
+      min-width: 130px;
+    }
+
+    .responsive-tbl {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 8px;
+    }
+
+    .responsive-tbl th {
+      background: #faf8f9;
+      color: var(--text-muted);
+      font-weight: 800;
+      padding: 8px 10px;
+      text-align: left;
+      border-bottom: 1.5px solid #f1f5f9;
+    }
+
+    .responsive-tbl td {
+      padding: 9px 10px;
+      border-bottom: 1px solid #f8fafc;
+      color: var(--text-dark);
+    }
+
+    /* Digital Notebook Grid (Confidential Blueprint) */
+    .grid-notebook-container {
+      background: #ffffff;
+      border: 2px solid #fed7e2;
+      border-radius: 20px;
+      padding: 16px;
+      background-image: 
+        linear-gradient(to right, rgba(244, 63, 110, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(244, 63, 110, 0.07) 1px, transparent 1px);
+      background-size: 18px 18px;
+      box-shadow: 0 8px 24px rgba(244, 63, 110, 0.06);
+    }
+
+    .notebook-inner {
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 14px;
+      padding: 14px;
+      border-left: 4px solid #f472b6;
+    }
+
+    .handwritten-big {
+  font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.handwritten-sub {
+  font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 600;
+}
+
+.notebook-tbl {
+  font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.notebook-tbl td, .notebook-tbl th {
+  font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 13px;
+}
+
+    .notebook-tbl .row-highlight td {
+      border-top: 1.5px solid #fed7e2;
+      font-weight: 800;
+    }
+
+    /* Modal Overlays */
+    .pin-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .pin-modal-overlay.show {
+      display: flex;
+    }
+
+    .pin-box {
+      background: #ffffff;
+      width: 100%;
+      max-width: 320px;
+      border-radius: 20px;
+      padding: 22px 20px;
+      text-align: center;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP STICKY BAR -->
+  <header class="top-header">
+    <div class="brand-wrap" onclick="navigateTo('cover')" style="cursor:pointer;" title="Go to Cover Page">
+      <span class="brand-icon">🧭</span>
+      <div>
+        <div class="brand-title">Little Life Compass ✨</div>
+        <span class="brand-subtitle">Personal Ledger & Life Sanctuary</span>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn" onclick="openModuleCustomizer()">⚙️ Modules</button>
+      <button class="icon-btn" onclick="toggleDrawer()">☰ Menu</button>
+    </div>
+  </header>
+
+  <!-- NAVIGATION DRAWER BACKDROP & MENU -->
+  <div id="drawerOverlay" class="drawer-overlay" onclick="toggleDrawer()"></div>
+  <aside id="drawerMenu" class="drawer-menu">
+    <div class="drawer-header">
+      <strong style="font-size:14px; color:var(--pink-primary);">Navigation Menu</strong>
+      <button class="del-btn" onclick="toggleDrawer()">&times;</button>
+    </div>
+    <div id="navMenuItems">
+      <div id="nav_payday" class="nav-item active" onclick="navigateTo('payday', this)"><span>🌸</span> Payday & Budget Hub</div>
+      <div id="nav_attendance" class="nav-item" onclick="navigateTo('attendance', this)"><span>📅</span> Attendance & OT Tracker</div>
+      <div id="nav_matrix" class="nav-item" onclick="navigateTo('matrix', this)"><span>📑</span> Salary & OT Matrix</div>
+      <div id="nav_goals" class="nav-item" onclick="navigateTo('goals', this)"><span>✨</span> Little Life & Goals Hub</div>
+      <div id="nav_locked" class="nav-item" onclick="promptUnlockLockedSection(this)"><span>🔒</span> Secret Ledger (Locked)</div>
+    </div>
+  </aside>
+
+  <!-- MAIN APP CONTAINER -->
+  <main class="content-container">
+
+    <!-- 1. COVER PAGE VIEW -->
+    <section id="view-cover" class="section-view active-view">
+      <div class="card" style="text-align:center; padding:38px 20px; background:linear-gradient(135deg, #fff0f5 0%, #e0f2fe 100%); border-color:#fbcfe8;">
+        <div style="font-size:48px; margin-bottom:8px;">💌🌸✨</div>
+        <h1 style="color:var(--pink-primary); font-size:24px; font-weight:800; letter-spacing:-0.4px; margin-bottom:6px;">Engineer Maryfaith</h1>
+        <p style="font-size:13.5px; font-weight:600; color:#475569; max-width:440px; margin:0 auto 20px; line-height:1.5;">
+          "Just an engineering girlie taking small steps toward big goals, with honest work and a well-budgeted life. 🎀✨"
+        </p>
+
+        <!-- Scripture Quotes Container -->
+        <div style="max-width:460px; margin:0 auto 24px; display:flex; flex-direction:column; gap:10px;">
+          <div style="background:rgba(255, 255, 255, 0.85); border:1.5px dashed var(--pink-border); border-radius:14px; padding:12px 16px; text-align:center;">
+            <strong style="font-size:11.5px; color:var(--pink-primary); text-transform:uppercase; letter-spacing:0.4px; display:block; margin-bottom:3px;">Proverbs 21:5</strong>
+            <p style="font-size:12.5px; color:#334155; font-style:italic; line-height:1.45; margin:0;">
+              “The plans of the diligent lead surely to abundance, but everyone who is hasty comes only to poverty.”
+            </p>
+          </div>
+
+          <div style="background:rgba(255, 255, 255, 0.85); border:1.5px dashed var(--blue-border); border-radius:14px; padding:12px 16px; text-align:center;">
+            <strong style="font-size:11.5px; color:var(--blue-primary); text-transform:uppercase; letter-spacing:0.4px; display:block; margin-bottom:3px;">Proverbs 3:9</strong>
+            <p style="font-size:12.5px; color:#334155; font-style:italic; line-height:1.45; margin:0;">
+              “Honor the Lord with your wealth and with the firstfruits of all your produce.”
+            </p>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap;">
+          <button class="pink-btn" onclick="navigateTo('payday', document.getElementById('nav_payday'))">Open Payday Hub 🌸</button>
+          <button class="pink-btn" style="background:var(--blue-primary);" onclick="navigateTo('goals', document.getElementById('nav_goals'))">Life & Goals Hub ✨</button>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 2. PAYDAY & BUDGET HUB -->
+    <section id="view-payday" class="section-view">
+      <!-- Cutoff Selector with Active Cycle Auto-Detection -->
+      <div class="card" style="padding:12px 14px; background:#fff;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <div>
+            <span style="font-size:11px; font-weight:bold; color:var(--text-muted);">ACTIVE PAY PERIOD:</span>
+            <div id="activePeriodLabel" style="font-size:15px; font-weight:800; color:var(--pink-primary);">Detecting active cycle...</div>
+            <p id="cutoffLockNotice" style="font-size:10px; color:var(--text-muted); margin-top:2px;"></p>
+          </div>
+          <div style="display:flex; gap:6px; align-items:center;">
+            <button id="btnCutoff10" class="pink-btn" style="padding:6px 12px; font-size:11px;" onclick="selectCutoffManually('10th')">10th Payday</button>
+            <button id="btnCutoff25" class="pink-btn" style="padding:6px 12px; font-size:11px;" onclick="selectCutoffManually('25th')">25th Payday</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Statutory Schedule Selector -->
+      <div class="card" style="padding:10px 14px; background:#fdf2f8; border-color:var(--pink-border);">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <div>
+            <strong style="font-size:12px; color:var(--pink-primary);">🏠 Pag-IBIG Deduction Schedule:</strong>
+            <p style="font-size:10px; color:var(--text-muted);">Choose how the ₱200 monthly HDMF contribution is allocated.</p>
+          </div>
+          <select id="pagIbigScheduleSelect" onchange="updatePagIbigSchedule(this.value)" style="max-width:200px; padding:6px 10px; font-size:12px;">
+            <option value="split">⚖️ Split (₱100 each cutoff)</option>
+            <option value="10th">📅 10th Payday only (Full ₱200)</option>
+            <option value="25th">📅 25th Payday only (Full ₱200)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Summary Stat Cards -->
+      <div class="grid-4" style="margin-bottom:14px;">
+        <div class="stat-box">
+          <div class="stat-label">Estimated Gross</div>
+          <div id="estCutoffGross" class="stat-val">₱11,500.00</div>
+          <p id="otBonusNote" style="font-size:10px; color:var(--pink-primary); font-weight:bold; margin-top:2px;">+₱0.00 OT / Holiday</p>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Mandatory Ded.</div>
+          <div id="cutoffMandatoryDed" class="stat-val" style="color:var(--text-muted);">₱887.50</div>
+          <p id="statutoryBreakdownNote" style="font-size:9.5px; color:var(--text-muted); margin-top:2px;">SSS, PHIC, HDMF</p>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Auto BIR Tax</div>
+          <div id="cutoffTaxDisplay" class="stat-val" style="color:var(--blue-primary);">₱0.00</div>
+          <p id="taxBracketLabel" style="font-size:9.5px; color:var(--blue-primary); font-weight:bold; margin-top:2px;">Tax-Exempt (0%)</p>
+        </div>
+        <div class="stat-box highlight">
+          <div class="stat-label">Net Take-Home</div>
+          <div id="estCutoffSahod" class="stat-val" style="color:var(--pink-primary);">₱10,612.50</div>
+          <p style="font-size:9.5px; color:var(--pink-primary); margin-top:2px;">Estimated Paycheck</p>
+        </div>
+        <div class="stat-box safe-pocket">
+          <div class="stat-label" style="color:var(--green-primary);">Safe Pocket (Left)</div>
+          <div id="tirangPeraDisplay" class="stat-val" style="color:var(--green-primary); font-size:17px;">₱0.00</div>
+          <p id="dailyBudgetPill" style="font-size:10px; font-weight:bold; color:var(--green-primary); margin-top:2px;">₱0.00 / day pace</p>
+        </div>
+      </div>
+
+      <!-- Daily Spending Pacer -->
+      <div class="card" style="border-color:#bbf7d0; background:#f0fdf4;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <div>
+            <div style="font-size:11px; color:#166534; font-weight:bold;">DAILY SPENDING PACER:</div>
+            <div id="targetDailyEstimate" style="font-size:18px; font-weight:800; color:#15803d;">₱0.00 / day</div>
+            <p id="remainingDaysCount" style="font-size:10.5px; color:#166534;">15 days cycle allocation</p>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:11px; color:#166534; font-weight:bold;">Spent Today:</div>
+            <div id="spentTodayDisplay" style="font-size:18px; font-weight:800; color:#15803d;">₱0.00</div>
+            <span id="dailyStatusAlert" style="font-size:10px; font-weight:bold; color:#059669;">✨ Within healthy daily pace</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fixed Commitments Table -->
+      <div class="card">
+        <div class="card-title">
+          <span>📋 Fixed Commitments for Cutoff</span>
+          <span id="totalFixedBillsDisplay" style="color:var(--pink-primary);">₱0.00</span>
+        </div>
+        <table class="responsive-tbl">
+          <thead>
+            <tr><th>Obligation</th><th style="text-align:right;">Budget (₱)</th></tr>
+          </thead>
+          <tbody id="fixedBillsTbody"></tbody>
+        </table>
+      </div>
+
+      <!-- Extra Inflow -->
+      <div class="card">
+        <div class="card-title">
+          <span>💰 Extra Inflow (Side Hustles & Bonuses)</span>
+          <span id="totalExtraInflow" style="color:var(--blue-primary);">+₱0.00</span>
+        </div>
+        <div class="input-row">
+          <input type="text" id="extraIncomeDesc" placeholder="Source (e.g. Project Bonus, Sideline)" />
+          <input type="number" id="extraIncomeAmt" placeholder="Amount (₱)" />
+          <button class="pink-btn" style="background:var(--blue-primary);" onclick="addExtraIncome()">Add Income</button>
+        </div>
+        <table class="responsive-tbl">
+          <thead><tr><th>Source</th><th>Cutoff</th><th style="text-align:right;">Amount</th><th></th></tr></thead>
+          <tbody id="extraIncomeRows"></tbody>
+        </table>
+      </div>
+
+      <!-- Daily Expenses Log -->
+      <div class="card">
+        <div class="card-title">
+          <span>☕ Daily Expenses & Personal Allowance Log</span>
+        </div>
+        <div class="input-row">
+          <input type="date" id="expenseDateInput" />
+          <input type="text" id="expenseDescInput" placeholder="Item description" />
+          <input type="number" id="expenseCostInput" placeholder="Cost (₱)" />
+          <select id="expenseCategoryInput">
+            <option value="Food">Food & Coffee</option>
+            <option value="Transpo">Transit</option>
+            <option value="Personal">Personal Care</option>
+            <option value="Others">Others</option>
+          </select>
+          <button class="pink-btn" onclick="addDailyExpense()">Log Expense</button>
+        </div>
+        <table class="responsive-tbl">
+          <thead><tr><th>Date</th><th>Item</th><th>Category</th><th style="text-align:right;">Cost</th><th></th></tr></thead>
+          <tbody id="expenseRows"></tbody>
+        </table>
+      </div>
+    </section>
+    
+    <!-- 3. ATTENDANCE & OT TRACKER -->
+    <section id="view-attendance" class="section-view">
+      <div class="card">
+        <div class="card-title">
+          <span>📅 Shift Attendance & Overtime Tracker</span>
+          <span class="badge" style="background:#e0f2fe; color:var(--blue-primary);">Payslip Sync</span>
+        </div>
+        <p style="font-size:11.5px; color:var(--text-muted); margin-bottom:12px;">
+          Log your 8-hour or 12-hour shifts. Working beyond your regular cycle (a 6th day for 8h, or a 5th day for 12h) is logged as an Extra OT Shift!
+        </p>
+
+        <!-- Log Inputs -->
+        <div class="input-row">
+          <input type="date" id="attendDateInput" />
+          
+          <!-- Shift Base Type -->
+          <select id="attendShiftType">
+            <option value="12-Hour Shift">12-Hour Shift (4-day week base)</option>
+            <option value="8-Hour Shift">8-Hour Shift (5-day week base)</option>
+            <option value="Rest Day">Rest Day (Off Duty)</option>
+            <option value="Regular Holiday">Regular Holiday (200%)</option>
+            <option value="Special Holiday">Special Holiday (130%)</option>
+            <option value="Unpaid Leave">Unpaid Leave (Absence)</option>
+          </select>
+
+          <!-- Shift Classification: Regular or Extra OT Day -->
+          <select id="attendShiftCategory">
+            <option value="Regular Scheduled">Normal Scheduled Shift</option>
+            <option value="Extra OT Shift">⚡ Extra OT Shift (5th day for 12h / 6th day for 8h)</option>
+          </select>
+
+          <!-- Incidental Extra OT Hours (e.g. 1-2 hours extension) -->
+          <input type="number" id="attendOtHours" placeholder="Incidental OT Hours (e.g. 1.5)" min="0" step="0.5" />
+          
+          <button class="pink-btn" style="background:var(--blue-primary);" onclick="logAttendanceShift()">Save Shift</button>
+        </div>
+
+        <!-- Shift Color Legend -->
+        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; padding:10px; background:#f8fafc; border-radius:12px; border:1px solid #e2e8f0; font-size:11px; font-weight:700;">
+          <span style="display:inline-flex; align-items:center; gap:4px; color:#0284c7;">
+            <span style="width:10px; height:10px; border-radius:3px; background:#0284c7; display:inline-block;"></span> Regular Shift
+          </span>
+          <span style="display:inline-flex; align-items:center; gap:4px; color:#7e22ce;">
+            <span style="width:10px; height:10px; border-radius:3px; background:#a855f7; display:inline-block;"></span> Rest Day
+          </span>
+          <span style="display:inline-flex; align-items:center; gap:4px; color:#ea580c;">
+            <span style="width:10px; height:10px; border-radius:3px; background:#f97316; display:inline-block;"></span> ⚡ Extra OT Day (5th/6th Day)
+          </span>
+          <span style="display:inline-flex; align-items:center; gap:4px; color:#d97706;">
+            <span style="width:10px; height:10px; border-radius:3px; background:#f59e0b; display:inline-block;"></span> Holiday
+          </span>
+        </div>
+
+        <!-- Full Month Shift Calendar Grid -->
+        <div style="margin-top:14px; background:#ffffff; border:1.5px solid #e2e8f0; border-radius:16px; padding:12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <button class="icon-btn" style="padding:4px 8px; font-size:11px;" onclick="changeCalendarMonth(-1)">◀ Prev Month</button>
+            <strong id="shiftCalendarMonthLabel" style="font-size:13px; color:var(--text-dark);">Month Calendar</strong>
+            <button class="icon-btn" style="padding:4px 8px; font-size:11px;" onclick="changeCalendarMonth(1)">Next Month ▶</button>
+          </div>
+          <!-- Days of Week Header -->
+          <div style="display:grid; grid-template-columns: repeat(7, 1fr); gap:4px; text-align:center; font-size:10px; font-weight:800; color:var(--text-muted); margin-bottom:4px;">
+            <span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span>
+          </div>
+          <!-- Dynamic Grid Cells (Full Month) -->
+          <div id="shiftCalendarGrid" style="display:grid; grid-template-columns: repeat(7, 1fr); gap:4px; text-align:center;"></div>
+        </div>
+
+        <!-- Recent Logs List -->
+        <div style="margin-top:14px;">
+          <span style="font-size:11px; font-weight:800; color:var(--text-muted); display:block; margin-bottom:6px;">LOGGED SHIFTS THIS CYCLE:</span>
+          <div id="attendanceLogsList" style="display:flex; flex-direction:column; gap:6px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. SALARY & OT MATRIX -->
+    <!-- 4. SALARY & OVERTIME MATRIX -->
+    <section id="view-matrix" class="section-view">
+      <!-- Monthly Compensation Overview -->
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title" style="color:var(--pink-primary);">
+          <span>🎀 Monthly Compensation & Statutory Overview</span>
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:10px;">
+          <div class="stat-box" style="text-align:left; background:#fff7ed; border-color:#ffedd5;">
+            <div style="font-size:11px; color:var(--text-muted); font-weight:bold;">Gross Monthly Base</div>
+            <div style="font-size:22px; font-weight:900; color:#c2410c; margin:4px 0;">₱23,000.00</div>
+            <div style="font-size:10px; color:var(--text-muted);">₱11,500.00 base per semi-monthly cutoff</div>
+          </div>
+          <div class="stat-box" style="text-align:left; background:#f0fdf4; border-color:#bbf7d0;">
+            <div style="font-size:11px; color:var(--text-muted); font-weight:bold;">Withholding Tax (WTax)</div>
+            <div style="font-size:22px; font-weight:900; color:#15803d; margin:4px 0;">₱0.00</div>
+            <div style="font-size:10px; color:#166534; font-weight:bold;">TRAIN Law Exempt</div>
+          </div>
+          <div class="stat-box" style="text-align:left; background:#fdf2f8; border-color:#fce7f3;">
+  <div style="font-size:11px; color:var(--text-muted); font-weight:bold;">Mandatory Deductions</div>
+  <div id="cutoffMandatoryDed" style="font-size:22px; font-weight:900; color:#be185d; margin:4px 0;">₱962.50</div>
+  <div id="statutoryBreakdownNote" style="font-size:10px; color:var(--text-muted);">SSS ₱575.00 | PHIC ₱287.50 | HDMF ₱100.00</div>
+</div>
+          <div class="stat-box" style="text-align:left; background:#fff0f6; border-color:#fbcfe8;">
+            <div style="font-size:11px; color:var(--text-muted); font-weight:bold;">Standard Net Take-Home</div>
+            <div style="font-size:22px; font-weight:900; color:var(--pink-primary); margin:4px 0;">₱21,075.00</div>
+            <div style="font-size:10px; color:var(--pink-primary); font-weight:bold;">₱10,537.50 base per cutoff</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Official Company Overtime Payment Matrix -->
+      <div class="card">
+        <div class="card-title" style="color:var(--pink-primary);">
+          <span>📑 Official Company Overtime Payment Matrix</span>
+        </div>
+        <p style="font-size:11px; color:var(--text-muted); margin-bottom:12px;">
+          Base Hourly Rate: <strong>₱110.22/hr</strong> (Standard 48 hrs/week, 313 factor). Multipliers are applied automatically:
+        </p>
+
+        <div style="overflow-x:auto;">
+          <table class="notebook-tbl" style="width:100%; border-collapse:collapse; font-size:12px;">
+            <thead>
+              <tr style="background:#ffe4e6; color:#9f1239;">
+                <th style="padding:8px 10px; text-align:left;">Code</th>
+                <th style="padding:8px 10px; text-align:left;">Description</th>
+                <th style="padding:8px 10px; text-align:center;">Rate</th>
+                <th style="padding:8px 10px; text-align:right;">Computed Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="font-weight:bold;">ROT</td><td>Regular Overtime</td><td style="text-align:center;">125%</td><td style="text-align:right; font-weight:bold; color:var(--blue-primary);">₱137.78/hr</td></tr>
+              <tr><td style="font-weight:bold;">NSD</td><td>Night Shift Differential</td><td style="text-align:center;">10%</td><td style="text-align:right; font-weight:bold; color:var(--blue-primary);">+₱11.02/hr</td></tr>
+              <tr><td style="font-weight:bold;">SDOR</td><td>Scheduled Day Off - Regular</td><td style="text-align:center;">130%</td><td style="text-align:right; font-weight:bold; color:var(--blue-primary);">₱1,146.33/day</td></tr>
+              <tr><td style="font-weight:bold;">SDOT</td><td>Scheduled Day Off - Overtime</td><td style="text-align:center;">169%</td><td style="text-align:right; font-weight:bold; color:var(--blue-primary);">₱186.27/hr</td></tr>
+              <tr><td style="font-weight:bold;">SHR</td><td>Special Holiday - Regular</td><td style="text-align:center;">130%</td><td style="text-align:right; font-weight:bold; color:var(--blue-primary);">₱1,146.33/day</td></tr>
+              <tr><td style="font-weight:bold;">LHR2</td><td>Legal Holiday - Regular (Worked)</td><td style="text-align:center;">200%</td><td style="text-align:right; font-weight:bold; color:var(--blue-primary);">₱1,763.58/day</td></tr>
+              <tr><td style="font-weight:bold;">LHOT</td><td>Legal Holiday - Overtime</td><td style="text-align:center;">260%</td><td style="text-align:right; font-weight:bold; color:var(--blue-primary);">₱286.57/hr</td></tr>
+              <tr><td style="font-weight:bold;">LHSR</td><td>Legal Holiday - Scheduled Day Off</td><td style="text-align:center;">260%</td><td style="text-align:right; font-weight:bold; color:var(--blue-primary);">₱2,292.65/day</td></tr>
+              <tr><td style="font-weight:bold;">SHSR</td><td>Special Holiday - Scheduled Day Off</td><td style="text-align:center;">150%</td><td style="text-align:right; font-weight:bold; color:var(--blue-primary);">₱1,322.69/day</td></tr>
+              <tr><td style="font-weight:bold;">SSOT</td><td>Special Holiday - Sched Day Off OT</td><td style="text-align:center;">195%</td><td style="text-align:right; font-weight:bold; color:var(--blue-primary);">₱214.93/hr</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 5. LITTLE LIFE & GOALS HUB -->
+    <section id="view-goals" class="section-view">
+      <!-- Top Overview Banner -->
+      <div class="card" style="background:linear-gradient(135deg, #fff0f5 0%, #e0f2fe 100%); border-color:#bae6fd;">
+        <div class="card-title" style="color:var(--blue-primary);">
+          <span>🧭 Little Life Compass & Daily Glow</span>
+          <span class="badge" style="background:#fff; color:var(--pink-primary);">Today</span>
+        </div>
+        <p style="font-size:12px; color:#475569; line-height:1.5;">
+          "Small daily steps toward a healthy, fulfilling, and well-budgeted life. You are blooming every single day! 🌸✨"
+        </p>
+      </div>
+
+      <!-- Daily Habits & Shift-Friendly Water Tracker -->
+      <div class="card" style="border-color:var(--pink-border);">
+        <div class="card-title" style="color:var(--pink-primary);">
+          <span>💧 Daily Habits & Glow Checklist</span>
+          <span id="habitCompletionRate" style="font-size:11px; font-weight:800; color:var(--green-primary);">0/5 Done</span>
+        </div>
+
+        <!-- 8-Glass Water Tracker (Shift & Break Friendly) -->
+        <div style="background:#f0f9ff; border:1.5px solid #bae6fd; border-radius:16px; padding:12px; margin-bottom:14px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <strong style="font-size:12px; color:#0369a1;">💧 8-Glass Hydration Tracker (Shift & Break Friendly):</strong>
+            <span id="waterCountBadge" class="badge" style="background:var(--blue-primary); color:#fff; font-size:10px;">0 / 8 Glasses</span>
+          </div>
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap:6px;">
+            <label style="background:#fff; border:1px solid #e0f2fe; border-radius:10px; padding:6px 8px; font-size:11px; display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="checkbox" id="w1" onchange="toggleWaterGlass(1)" style="flex:none; width:15px; height:15px;" />
+              <span>🌅 Morning Glass</span>
+            </label>
+            <label style="background:#fff; border:1px solid #e0f2fe; border-radius:10px; padding:6px 8px; font-size:11px; display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="checkbox" id="w2" onchange="toggleWaterGlass(2)" style="flex:none; width:15px; height:15px;" />
+              <span>💼 Pre-Floor Entry</span>
+            </label>
+            <label style="background:#fff; border:1px solid #e0f2fe; border-radius:10px; padding:6px 8px; font-size:11px; display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="checkbox" id="w3" onchange="toggleWaterGlass(3)" style="flex:none; width:15px; height:15px;" />
+              <span>🍱 Floor Exit / Lunch</span>
+            </label>
+            <label style="background:#fff; border:1px solid #e0f2fe; border-radius:10px; padding:6px 8px; font-size:11px; display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="checkbox" id="w4" onchange="toggleWaterGlass(4)" style="flex:none; width:15px; height:15px;" />
+              <span>⚡ Midday Break Refill</span>
+            </label>
+            <label style="background:#fff; border:1px solid #e0f2fe; border-radius:10px; padding:6px 8px; font-size:11px; display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="checkbox" id="w5" onchange="toggleWaterGlass(5)" style="flex:none; width:15px; height:15px;" />
+              <span>🚪 Post-Floor Shift Out</span>
+            </label>
+            <label style="background:#fff; border:1px solid #e0f2fe; border-radius:10px; padding:6px 8px; font-size:11px; display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="checkbox" id="w6" onchange="toggleWaterGlass(6)" style="flex:none; width:15px; height:15px;" />
+              <span>🏠 Home Arrival / Dinner</span>
+            </label>
+            <label style="background:#fff; border:1px solid #e0f2fe; border-radius:10px; padding:6px 8px; font-size:11px; display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="checkbox" id="w7" onchange="toggleWaterGlass(7)" style="flex:none; width:15px; height:15px;" />
+              <span>🍵 Evening Wind-Down</span>
+            </label>
+            <label style="background:#fff; border:1px solid #e0f2fe; border-radius:10px; padding:6px 8px; font-size:11px; display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="checkbox" id="w8" onchange="toggleWaterGlass(8)" style="flex:none; width:15px; height:15px;" />
+              <span>🛌 Bedtime Glass</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Daily Habits List -->
+        <div id="dynamicDailyHabitsContainer" style="display:flex; flex-direction:column; gap:8px;">
+          <label style="background:#fffafb; border:1.5px solid #fecdd7; border-radius:12px; padding:10px 12px; font-size:12px; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <input type="checkbox" id="habit_workout" onchange="saveHabitProgress()" style="flex:none; width:18px; height:18px;" />
+              <span>🏃‍♀️ <strong>Daily Movement:</strong> Walking or quick home workout</span>
+            </div>
+            <span style="font-size:10px; color:#be185d; font-weight:bold;">Active Energy ✨</span>
+          </label>
+          <label style="background:#fffafb; border:1.5px solid #fecdd7; border-radius:12px; padding:10px 12px; font-size:12px; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <input type="checkbox" id="habit_reading" onchange="saveHabitProgress()" style="flex:none; width:18px; height:18px;" />
+              <span>📖 <strong>Mind & Growth:</strong> Reading session (Bible / Fiction)</span>
+            </div>
+            <span style="font-size:10px; color:#be185d; font-weight:bold;">Learning 🧠</span>
+          </label>
+          <label style="background:#fffafb; border:1.5px solid #fecdd7; border-radius:12px; padding:10px 12px; font-size:12px; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <input type="checkbox" id="habit_eating" onchange="saveHabitProgress()" style="flex:none; width:18px; height:18px;" />
+              <span>🥗 <strong>Nourishing Meals:</strong> Mindful, wholesome food choices</span>
+            </div>
+            <span style="font-size:10px; color:#be185d; font-weight:bold;">Nourish 🌱</span>
+          </label>
+          <label style="background:#fffafb; border:1.5px solid #fecdd7; border-radius:12px; padding:10px 12px; font-size:12px; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <input type="checkbox" id="habit_partner" onchange="saveHabitProgress()" style="flex:none; width:18px; height:18px;" />
+              <span>💖 <strong>Love & Connection:</strong> Quality time & communication</span>
+            </div>
+            <span style="font-size:10px; color:#be185d; font-weight:bold;">Connection 🌷</span>
+          </label>
+        </div>
+
+        <!-- Converted Active Daily Schedules Container -->
+        <div id="convertedDailyHabitsList" style="display:flex; flex-direction:column; gap:8px; margin-top:8px;"></div>
+
+        <!-- Consistency Calendar Grid -->
+        <div style="margin-top:16px; background:#fff; border:1.5px solid #fed7e2; border-radius:16px; padding:12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <strong style="font-size:12px; color:var(--pink-primary);">📅 Habit Consistency Calendar:</strong>
+            <span style="font-size:10px; color:var(--text-muted);">🌸 = Completed Day</span>
+          </div>
+          <div id="habitGrid" style="display:grid; grid-template-columns: repeat(7, 1fr); gap:4px; text-align:center;"></div>
+        </div>
+      </div>
+
+      <!-- 📖 READING CORNER: BIBLE & FICTION LOGS -->
+      <div class="card" style="border-color:#fed7aa; background:#fffaf5;">
+        <div class="card-title" style="color:#c2410c;">
+          <span>📖 Reading Corner: Holy Bible & Fiction Tracker</span>
+          <span id="bibleTotalProgressLabel" class="badge" style="background:#ffedd5; color:#9a3412;">0/66 Books Done</span>
+        </div>
+
+        <!-- Canonical Bible Progression -->
+        <div style="background:#ffffff; border:1.5px solid #fed7aa; border-radius:14px; padding:12px; margin-bottom:12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <strong style="font-size:12px; color:#9a3412;">🕊️ Canonical Bible Reading Progression:</strong>
+            <span id="biblePercentText" style="font-size:11px; font-weight:bold; color:#ea580c;">0% Complete</span>
+          </div>
+          
+          <div style="width:100%; height:10px; background:#ffedd5; border-radius:8px; overflow:hidden; margin-bottom:10px;">
+            <div id="bibleProgressBar" style="width:0%; height:100%; background:#f97316; transition:width 0.3s ease;"></div>
+          </div>
+
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap:8px;">
+            <div>
+              <label style="font-size:10.5px; font-weight:bold; color:#9a3412;">Testament:</label>
+              <select id="bibleTestamentSelect" onchange="updateBibleBooksDropdown()" style="width:100%; margin-top:2px;">
+                <option value="OT">Old Testament (39 Books)</option>
+                <option value="NT">New Testament (27 Books)</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:10.5px; font-weight:bold; color:#9a3412;">Current Book:</label>
+              <select id="bibleBookSelect" style="width:100%; margin-top:2px;"></select>
+            </div>
+            <div>
+              <label style="font-size:10.5px; font-weight:bold; color:#9a3412;">Chapter / Reading Note:</label>
+              <input type="text" id="bibleChapterNote" placeholder="e.g. Genesis Ch. 1–3" style="width:100%; margin-top:2px;" />
+            </div>
+          </div>
+
+          <div style="display:flex; gap:8px; margin-top:10px; justify-content:flex-end;">
+            <button class="pink-btn" style="background:#ea580c; font-size:11px;" onclick="markCurrentBibleBookDone()">Mark Book as Completed ✨</button>
+          </div>
+          <div id="completedBooksBadgeList" style="display:flex; flex-wrap:wrap; gap:4px; margin-top:8px;"></div>
+        </div>
+
+        <!-- Fiction & Novel Reading Shelf -->
+        <div style="background:#ffffff; border:1.5px solid #fed7aa; border-radius:14px; padding:12px;">
+          <strong style="font-size:12px; color:#9a3412; display:block; margin-bottom:6px;">📚 Novels & Fiction Reading Shelf:</strong>
+          <div class="input-row">
+            <input type="text" id="fictionBookTitle" placeholder="Book Title (e.g. The Midnight Library)" />
+            <input type="text" id="fictionBookAuthor" placeholder="Author" />
+            <input type="text" id="fictionBookProgress" placeholder="Progress (e.g. Page 45 of 320)" />
+            <button class="pink-btn" style="background:#c2410c;" onclick="addFictionBook()">Add Book 📖</button>
+          </div>
+          <div id="fictionBooksList" style="display:flex; flex-direction:column; gap:6px; margin-top:10px;"></div>
+        </div>
+      </div>
+
+      <!-- Wellness Milestones -->
+      <div class="card" style="border-color:#d8b4fe;">
+        <div class="card-title" style="color:#7e22ce;">
+          <span>🌿 Wellness & Self-Care Milestones</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <!-- Open-Ended Laser Diode Tracker -->
+          <div style="background:#faf5ff; border:1.5px solid #e9d5ff; border-radius:12px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+            <div>
+              <strong style="font-size:12px; color:#6b21a8;">✨ Underarm Laser Diode Treatment:</strong>
+              <p style="font-size:11px; color:var(--text-muted);">Track appointments as you go.</p>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span id="laserCountText" style="font-size:12px; font-weight:bold; color:#7e22ce;">0 Sessions Done</span>
+              <button class="pink-btn" style="padding:4px 10px; font-size:11px; background:#7e22ce;" onclick="addLaserSession()">+ Log Session</button>
+              <button class="del-btn" style="font-size:12px;" title="Reset / Clear Count" onclick="resetLaserSessions()">↺</button>
+            </div>
+          </div>
+          <div style="background:#faf5ff; border:1.5px solid #e9d5ff; border-radius:12px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+            <div>
+              <strong style="font-size:12px; color:#6b21a8;">🧴 Derma Consultation & Routine:</strong>
+              <p style="font-size:11px; color:var(--text-muted);">Consult a dermatologist and establish a tailored regimen.</p>
+            </div>
+            <input type="checkbox" id="goal_derma" onchange="promptConvertGoalToHabit('derma', '🧴 Daily Skincare Routine (Derma-approved)', 'Skincare 🧖‍♀️', this)" style="width:18px; height:18px;" />
+          </div>
+          <div style="background:#faf5ff; border:1.5px solid #e9d5ff; border-radius:12px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+            <div>
+              <strong style="font-size:12px; color:#6b21a8;">🧠 Mental Health & Wellness Check:</strong>
+              <p style="font-size:11px; color:var(--text-muted);">Dedicate time for mindfulness, mental rest, and inner peace.</p>
+            </div>
+            <input type="checkbox" id="goal_mental" onchange="promptConvertGoalToHabit('mental', '🧘 Daily Mindfulness & Breathing Reset', 'Mindfulness 🕊️', this)" style="width:18px; height:18px;" />
+          </div>
+          <div style="background:#faf5ff; border:1.5px solid #e9d5ff; border-radius:12px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+            <div>
+              <strong style="font-size:12px; color:#6b21a8;">💻 Professional Certifications & Courses:</strong>
+              <p style="font-size:11px; color:var(--text-muted);">Complete career-aligned online certifications.</p>
+            </div>
+            <input type="checkbox" id="goal_courses" onchange="promptConvertGoalToHabit('courses', '💻 Daily 20-min Course Study Session', 'Upskill 📚', this)" style="width:18px; height:18px;" />
+          </div>
+          <div style="background:#faf5ff; border:1.5px solid #e9d5ff; border-radius:12px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+            <div>
+              <strong style="font-size:12px; color:#6b21a8;">💼 Side Hustles & Creative Inflow:</strong>
+              <p style="font-size:11px; color:var(--text-muted);">Build supplementary income to accelerate savings and investments.</p>
+            </div>
+            <input type="checkbox" id="goal_sidehustle" onchange="promptConvertGoalToHabit('sidehustle', '💼 Daily Side Project Pitch / Task', 'Hustle 💸', this)" style="width:18px; height:18px;" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Sanctuary & Apartment Wishlist -->
+      <div class="card" style="border-color:#bae6fd;">
+        <div class="card-title" style="color:var(--blue-primary);">
+          <span>🏠 Apartment Upgrades & Sanctuary Wishlist</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <label style="background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:12px; padding:10px 12px; font-size:12px; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">
+            <div>
+              <strong>🧹 Weekly Sanctuary Reset:</strong>
+              <p style="font-size:10.5px; color:var(--text-muted);">Deep clean and organize living space every rest cycle.</p>
+            </div>
+            <input type="checkbox" id="goal_weeklyclean" onchange="toggleMilestone('weeklyclean')" style="width:18px; height:18px;" />
+          </label>
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap:8px;">
+            <label style="background:#fff; border:1.5px solid #e2e8f0; border-radius:12px; padding:8px 10px; font-size:11.5px; display:flex; align-items:center; gap:8px; cursor:pointer;">
+              <input type="checkbox" id="item_vacuum" onchange="promptConvertGoalToHabit('vacuum', '🌀 Quick Vacuum Tidy Routine', 'Tidy 🧹', this)" style="width:16px; height:16px;" />
+              <span>🌀 Vacuum Cleaner</span>
+            </label>
+            <label style="background:#fff; border:1.5px solid #e2e8f0; border-radius:12px; padding:8px 10px; font-size:11.5px; display:flex; align-items:center; gap:8px; cursor:pointer;">
+              <input type="checkbox" id="item_washing" onchange="promptConvertGoalToHabit('washing', '🧺 Laundry Cycle Routine', 'Clean 🧼', this)" style="width:16px; height:16px;" />
+              <span>🧺 Washing Machine</span>
+            </label>
+            <label style="background:#fff; border:1.5px solid #e2e8f0; border-radius:12px; padding:8px 10px; font-size:11.5px; display:flex; align-items:center; gap:8px; cursor:pointer;">
+              <input type="checkbox" id="item_sampayan" onchange="toggleWishlistItem('sampayan')" style="width:16px; height:16px;" />
+              <span>☀️ Drying Rack</span>
+            </label>
+            <label style="background:#fff; border:1.5px solid #e2e8f0; border-radius:12px; padding:8px 10px; font-size:11.5px; display:flex; align-items:center; gap:8px; cursor:pointer;">
+              <input type="checkbox" id="item_cabinet" onchange="toggleWishlistItem('cabinet')" style="width:16px; height:16px;" />
+              <span>👗 Wardrobe Cabinet</span>
+            </label>
+          </div>
+          <label style="background:#eff6ff; border:1.5px solid #bfdbfe; border-radius:12px; padding:10px 12px; font-size:12px; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">
+            <div>
+              <strong style="color:var(--blue-primary);">🏡 Peaceful Sanctuary Search:</strong>
+              <p style="font-size:10.5px; color:var(--text-muted);">Explore serene, secure living spaces for future relocation.</p>
+            </div>
+            <input type="checkbox" id="goal_aptsearch" onchange="toggleMilestone('aptsearch')" style="width:18px; height:18px;" />
+          </label>
+        </div>
+        <div style="margin-top:14px; border-top:1.5px dashed #cbd5e1; padding-top:10px;">
+          <span style="font-size:11px; font-weight:bold; color:var(--text-muted); display:block; margin-bottom:6px;">➕ Add Custom Dream / Aspiration:</span>
+          <div class="input-row">
+            <input type="text" id="customGoalInput" placeholder="e.g. Master French culinary baking, Self-care spa day..." />
+            <button class="pink-btn" style="background:var(--blue-primary);" onclick="addCustomGoalItem()">Add Goal ✨</button>
+          </div>
+          <div id="customGoalsList" style="display:flex; flex-direction:column; gap:6px; margin-top:6px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HABIT CONVERTER POPUP MODAL -->
+    <div id="habitChoiceModal" class="pin-modal-overlay">
+      <div class="pin-box" style="max-width:340px; text-align:center;">
+        <div style="font-size:36px; margin-bottom:4px;">🎉🌸</div>
+        <h3 id="modalGoalTitle" style="color:var(--pink-primary); font-size:15px; font-weight:800; margin-bottom:4px;">Milestone Achieved!</h3>
+        <p style="font-size:11px; color:var(--text-muted); margin-bottom:14px;">Would you like to turn this achievement into an ongoing <b>Daily / Regular Schedule</b> in your checklist?</p>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <button class="pink-btn" onclick="confirmConvertToDailyHabit(true)">✨ Yes, Add to Daily Schedule</button>
+          <button class="pink-btn" style="background:#64748b;" onclick="confirmConvertToDailyHabit(false)">🌸 Keep as Completed Milestone</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 6. LOCKED SECRET BLUEPRINT & MASTER LEDGER -->
+    <section id="view-locked" class="section-view">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <span style="font-size:12px; font-weight:bold; color:var(--pink-primary);">🔒 Private Financial Blueprint & Master Plan</span>
+        <button class="pink-btn" style="padding:5px 12px; font-size:11px; background:#64748b;" onclick="lockSection()">Relock 🔒</button>
+      </div>
+
+      <!-- Digital Planner Grid Notebook -->
+      <div class="grid-notebook-container">
+        <div class="notebook-inner">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px;">
+            <div>
+              <div class="handwritten-big">23,000</div>
+              <div class="handwritten-sub">est. statutory deductions - 1,925</div>
+              <div class="handwritten-big" style="font-size:38px; color:#0f172a;">21,075</div>
+            </div>
+            <div style="text-align:right;">
+              <span class="badge" style="background:#fee2e2; color:#b91c1c; border-color:#fca5a5;">Confidential Blueprint</span>
+              <button onclick="changePinPrompt()" style="display:block; margin-top:6px; background:none; border:none; color:var(--text-muted); font-size:11px; text-decoration:underline; cursor:pointer;">Change PIN 🔑</button>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top:16px;">
+            <!-- 10th Table (Synced to Hub) -->
+            <div>
+              <table class="notebook-tbl">
+                <thead><tr><th colspan="2" style="text-align:center; font-size:13.5px; color:#0f172a;">every 10<sup>th</sup> — 10,537.50</th></tr></thead>
+                <tbody id="blueprintTable10th"></tbody>
+                <tfoot>
+                  <tr class="row-highlight"><td style="color:#1d4ed8;">money left</td><td id="blueprintMoneyLeft10" style="text-align:right; color:#1d4ed8; font-size:15px;">₱0.00</td></tr>
+                </tfoot>
+              </table>
+            </div>
+
+            <!-- 25th Table (Synced to Hub) -->
+            <div>
+              <table class="notebook-tbl">
+                <thead><tr><th colspan="2" style="text-align:center; font-size:13.5px; color:#0f172a;">every 25<sup>th</sup> — 10,537.50</th></tr></thead>
+                <tbody id="blueprintTable25th"></tbody>
+                <tfoot>
+                  <tr class="row-highlight"><td style="color:#1d4ed8;">money left</td><td id="blueprintMoneyLeft25" style="text-align:right; color:#1d4ed8; font-size:15px;">₱0.00</td></tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+
+      <!-- In-Sync Daily Allowance Pacer -->
+      <div class="card" style="margin-top:14px; border-color:#bae6fd; background:#f0f9ff;">
+        <div class="card-title" style="color:var(--blue-primary);">
+          <span>🌸 Daily Allowance Plan (In-Sync with Hub)</span>
+          <span style="font-size:11px;">Cycle Pacing</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <div style="font-size:11px; color:var(--text-muted);">Current Daily Limit:</div>
+            <div id="lockedDailyLimitSync" style="font-size:20px; font-weight:800; color:var(--blue-primary);">₱0.00 / day</div>
+          </div>
+          <div>
+            <div style="font-size:11px; color:var(--text-muted);">Spent Today:</div>
+            <div id="lockedSpentTodaySync" style="font-size:20px; font-weight:800; color:var(--green-primary);">₱0.00</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:11px; color:var(--text-muted);">Money Left in Pocket:</div>
+            <div id="lockedPocketSync" style="font-size:20px; font-weight:800; color:var(--green-primary);">₱0.00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Discreet Quality Time & Partner Transit Planner -->
+      <div class="card" style="border-color:var(--pink-border); background:#fffafb;">
+        <div class="card-title" style="color:var(--pink-primary);">
+          <span>💖 Quality Time & Partner Date Planner</span>
+          <span style="font-size:11px; color:var(--text-muted);">Dedicated Together Fund ✨</span>
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-bottom:12px;">
+          <div class="stat-box" style="text-align:left; background:#fff;">
+            <label style="font-size:11px; font-weight:bold; color:var(--text-muted);">Date Budget (Dining & Activities):</label>
+            <input type="number" id="dateBudgetInput" value="1200" onchange="calculateDatePlanner()" style="width:100%; margin-top:4px;" />
+          </div>
+          <div class="stat-box" style="text-align:left; background:#fff;">
+            <label style="font-size:11px; font-weight:bold; color:var(--text-muted);">Transit & Travel Allocation:</label>
+            <input type="number" id="partnerTranspoInput" value="500" onchange="calculateDatePlanner()" style="width:100%; margin-top:4px;" />
+          </div>
+          <div class="stat-box" style="text-align:left; background:#fff;">
+            <label style="font-size:11px; font-weight:bold; color:var(--text-muted);">Previous Month Rollover:</label>
+            <input type="number" id="dateRolloverInput" value="0" onchange="calculateDatePlanner()" style="width:100%; margin-top:4px;" />
+          </div>
+        </div>
+        <div style="padding:12px; background:#fff; border-radius:14px; border:1.5px dashed #f472b6; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <div style="font-size:11px; color:var(--text-muted); font-weight:bold;">Total Required for Date:</div>
+            <div id="totalNeededDateDisplay" style="font-size:18px; font-weight:800; color:var(--pink-primary);">₱1,700.00</div>
+          </div>
+          <div id="dateAffordabilityBanner" style="font-size:12px; font-weight:800; color:var(--green-primary);">Evaluating budget...</div>
+          <button class="pink-btn" style="padding:6px 12px; font-size:11px;" onclick="saveDateFundRollover()">Carry Over to Next Month 🌸</button>
+        </div>
+      </div>
+      
+      <!-- Overdue Dues & Projected Debt-Free Payoff Dates -->
+      <!-- Simple Overdue Tracker with Waived Penalties -->
+      <div class="card" style="border-color:#fca5a5; background:#fff; margin-top:14px;">
+        <div class="card-title" style="color:#b91c1c;">
+          <span>💳 Overdue Balances & Settlements</span>
+          <span style="font-size:11px; font-weight:bold; color:var(--blue-primary);">₱2,000 / mo Budget Allocation</span>
+        </div>
+        <p style="font-size:11.5px; color:var(--text-muted); margin-bottom:12px;">
+          May nakalaan kang ₱2,000/month sa sahod mo: ₱500 sa regular Shopee installment, at ₱1,500/month para tapusin ang overdue accounts.
+        </p>
+
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:10px;">
+          <!-- Shopee -->
+          <div class="stat-box" style="text-align:left; background:#fff7ed; border-color:#fed7aa;">
+            <strong style="font-size:12px; color:#c2410c;">🧡 Shopee Regular Installment:</strong>
+            <div style="font-size:16px; font-weight:800; color:#c2410c; margin:4px 0;">₱500.00 / month</div>
+            <p style="font-size:10px; color:var(--text-muted);">Fixed regular installment.</p>
+          </div>
+
+          <!-- TikTok -->
+          <div class="stat-box" style="text-align:left; background:#fdf2f8; border-color:#fbcfe8;">
+            <strong style="font-size:12px; color:#be185d;">🖤 TikTok Overdue Balance:</strong>
+            <input type="number" id="balanceTiktok" value="3781.02" step="0.01" onchange="saveDebtBalances()" style="width:100%; font-size:15px; font-weight:bold; color:#be185d; margin-top:4px;" />
+            
+            <div style="display:flex; gap:4px; margin-top:8px;">
+              <input type="number" id="payTiktokInput" placeholder="Amount (₱)" value="750" style="width:65%; padding:4px 6px; font-size:11px;" />
+              <button class="pink-btn" style="width:35%; padding:4px 6px; font-size:10.5px; background:#be185d;" onclick="submitPayment('tiktok')">Pay 💸</button>
+            </div>
+          </div>
+
+          <!-- BillEase (With Waived Checkbox) -->
+          <div class="stat-box" style="text-align:left; background:#eff6ff; border-color:#bfdbfe;">
+            <strong style="font-size:12px; color:var(--blue-primary);">💙 BillEase Balance:</strong>
+            <input type="number" id="balanceBillease" value="6325.10" step="0.01" onchange="saveDebtBalances()" style="width:100%; font-size:15px; font-weight:bold; color:var(--blue-primary); margin-top:4px;" />
+
+            <label style="display:flex; align-items:center; gap:6px; margin-top:6px; font-size:11px; color:#1e40af; cursor:pointer; background:#fff; padding:4px 8px; border-radius:6px; border:1px solid #bfdbfe;">
+              <input type="checkbox" id="checkWaivedBillease" onchange="toggleWaivedBillease(this.checked)" style="width:15px; height:15px;" />
+              <span>✨ <strong>Waived Penalties</strong> (₱3,604.94 only)</span>
+            </label>
+
+            <div style="display:flex; gap:4px; margin-top:8px;">
+              <input type="number" id="payBilleaseInput" placeholder="Amount (₱)" value="750" style="width:65%; padding:4px 6px; font-size:11px;" />
+              <button class="pink-btn" style="width:35%; padding:4px 6px; font-size:10.5px; background:var(--blue-primary);" onclick="submitPayment('billease')">Pay 💸</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="simpleDebtStatus" style="margin-top:12px; padding:10px 12px; background:#f8fafc; border-radius:10px; font-size:11.5px; color:#334155; line-height:1.5; border:1px solid #e2e8f0;"></div>
+      </div>
+
+      <!-- Smart Target Sinking Fund & Budget Diverter -->
+      <div class="card" style="border-color:#f472b6; background:#fffafc; margin-top:14px;">
+        <div class="card-title" style="color:#be185d;">
+          <span>🎯 Smart Target Sinking Fund & Budget Diverter</span>
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-bottom:12px;">
+          <div>
+            <label style="font-size:11px; font-weight:bold; color:var(--text-muted);">Target Goal Name:</label>
+            <input type="text" id="targetGoalName" placeholder="e.g. Vacuum Cleaner, Derma Package" style="width:100%; margin-top:4px;" />
+          </div>
+          <div>
+            <label style="font-size:11px; font-weight:bold; color:var(--text-muted);">Target Amount (₱):</label>
+            <input type="number" id="targetGoalCost" placeholder="e.g. 3500" oninput="calculatePacingRequirement()" style="width:100%; margin-top:4px;" />
+          </div>
+          <div>
+            <label style="font-size:11px; font-weight:bold; color:var(--text-muted);">Target Deadline Date:</label>
+            <input type="date" id="targetGoalDate" onchange="calculatePacingRequirement()" style="width:100%; margin-top:4px;" />
+          </div>
+        </div>
+        <div id="pacingResultBox" style="padding:10px 14px; background:#fff; border:1.5px dashed #f472b6; border-radius:12px; margin-bottom:12px; font-size:12px; color:#be185d; line-height:1.6;">
+          Enter a Target Amount and Target Deadline Date to view required pacing.
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:12px;">
+          <label style="background:#fff; border:1px solid #fed7e2; border-radius:10px; padding:8px 10px; font-size:11.5px; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <input type="checkbox" id="divert_leftover" onchange="calculatePacingRequirement()" style="width:16px; height:16px;" checked />
+              <span>🌱 <strong>Cutoff Leftover:</strong> 100% of unspent pocket funds at cutoff end</span>
+            </div>
+            <span style="font-size:10px; color:var(--green-primary); font-weight:bold;">Safe</span>
+          </label>
+          <label style="background:#fff; border:1px solid #fed7e2; border-radius:10px; padding:8px 10px; font-size:11.5px; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <input type="checkbox" id="divert_otinflow" onchange="calculatePacingRequirement()" style="width:16px; height:16px;" checked />
+              <span>⚡ <strong>OT & Extra Shift Inflow:</strong> Bonus earnings from overtime tracking</span>
+            </div>
+            <span style="font-size:10px; color:var(--blue-primary); font-weight:bold;">Accelerated</span>
+          </label>
+          <label style="background:#fff; border:1px solid #fed7e2; border-radius:10px; padding:8px 10px; font-size:11.5px; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <input type="checkbox" id="divert_dues_overdue" onchange="calculatePacingRequirement()" style="width:16px; height:16px;" />
+              <span>⏸️ <strong>Pause Overdue Allocation:</strong> Temporarily divert ₱750/cutoff fund pool</span>
+            </div>
+            <span style="font-size:10px; color:#b91c1c; font-weight:bold;">Temporary Hold</span>
+          </label>
+        </div>
+        <div style="margin-bottom:8px;">
+          <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:bold; margin-bottom:4px;">
+            <span id="targetGoalProgressLabel" style="color:#be185d;">Saved Toward Goal: ₱0.00 / ₱0.00</span>
+            <span id="targetGoalPercent" style="color:#be185d;">0%</span>
+          </div>
+          <div style="width:100%; height:12px; background:#fce7f3; border-radius:10px; overflow:hidden;">
+            <div id="targetGoalProgressBar" style="width:0%; height:100%; background:#ec4899; transition:width 0.3s ease;"></div>
+          </div>
+        </div>
+        <div style="display:flex; gap:8px; justify-content:flex-end;">
+          <button class="pink-btn" style="padding:6px 12px; font-size:11px; background:#64748b;" onclick="resetTargetGoal()">Reset Goal</button>
+          <button class="pink-btn" style="padding:6px 14px; font-size:11px;" onclick="saveActiveTargetGoal()">Save Goal & Activate ✨</button>
+        </div>
+      </div>
+
+      <!-- Cutoff Leftover Allocator -->
+      <div class="card" style="border-color:#bbf7d0; background:#f0fdf4; margin-top:14px;">
+        <div class="card-title" style="color:#15803d;">
+          <span>🌱 End-of-Cutoff Leftover Allocator</span>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:10px;">
+          <div style="flex:1; min-width:180px;">
+            <label style="font-size:11px; font-weight:bold; color:#166534;">Actual Remaining Pocket at Cutoff End (₱):</label>
+            <input type="number" id="cutoffActualLeftoverInput" placeholder="e.g. 500, 1000" style="width:100%; margin-top:4px;" />
+          </div>
+          <div style="flex:1; min-width:200px;">
+            <label style="font-size:11px; font-weight:bold; color:#166534;">Distribution Mode:</label>
+            <select id="leftoverSplitMode" style="width:100%; margin-top:4px; padding:8px 10px;">
+              <option value="50-50">⚖️ 50% Quality Time Fund / 50% Long-Term Savings</option>
+              <option value="70-30">🎯 70% Long-Term Savings / 30% Quality Time</option>
+              <option value="all-savings">🐷 100% to Long-Term Savings (Priority)</option>
+              <option value="all-date">💖 100% to Quality Time & Outings</option>
+            </select>
+          </div>
+          <button class="pink-btn" style="background:#15803d; margin-top:18px;" onclick="allocateCutoffLeftover()">Distribute Surplus 🌱</button>
+        </div>
+        <div id="leftoverAllocationResult" style="font-size:12px; color:#166534; font-weight:bold; line-height:1.5; padding:8px 12px; background:#fff; border-radius:10px; border:1px dashed #86efac; display:none;"></div>
+      </div>
+
+      <!-- Long-Term Savings & Student Loan Tracker -->
+      <div class="card" style="border-color:#d8b4fe; background:#faf5ff; margin-top:14px;">
+        <div class="card-title" style="color:#7e22ce;">
+          <span>🎯 Long-Term Savings & Student Loan Tracker</span>
+          <span style="font-size:11px; font-weight:bold; color:#9333ea;">Target Milestone Horizon</span>
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-bottom:12px;">
+          <div class="stat-box" style="text-align:left; background:#fff;">
+            <label style="font-size:11px; font-weight:bold; color:var(--text-muted);">Current Accumulated Savings (₱):</label>
+            <input type="number" id="currentTotalSavingsInput" value="0" onchange="updateSavingsGoalProgress()" style="width:100%; margin-top:4px;" />
+          </div>
+          <div class="stat-box" style="text-align:left; background:#fff;">
+            <label style="font-size:11px; font-weight:bold; color:var(--text-muted);">Priority Goal (Student Loan Payoff):</label>
+            <input type="number" id="studentLoanTargetInput" value="65000" disabled style="width:100%; margin-top:4px; background:#f1f5f9;" />
+          </div>
+          <div class="stat-box" style="text-align:left; background:#fff;">
+            <label style="font-size:11px; font-weight:bold; color:var(--text-muted);">Master Horizon Milestone:</label>
+            <input type="number" id="masterSavingsGoalInput" value="100000" disabled style="width:100%; margin-top:4px; background:#f1f5f9;" />
+          </div>
+        </div>
+
+        <div style="margin-bottom:10px;">
+          <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:bold; margin-bottom:4px;">
+            <span style="color:#b91c1c;">🎓 Priority 1: Student Loan Payoff (₱65,000)</span>
+            <span id="studentLoanPercentLabel" style="color:#b91c1c;">0%</span>
+          </div>
+          <div style="width:100%; height:12px; background:#fee2e2; border-radius:10px; overflow:hidden;">
+            <div id="studentLoanProgressBar" style="width:0%; height:100%; background:#ef4444; transition:width 0.3s ease;"></div>
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:bold; margin-bottom:4px;">
+            <span style="color:#7e22ce;">🏆 Master Goal: Financial Freedom (₱100,000)</span>
+            <span id="masterGoalPercentLabel" style="color:#7e22ce;">0%</span>
+          </div>
+          <div style="width:100%; height:12px; background:#f3e8ff; border-radius:10px; overflow:hidden;">
+            <div id="masterGoalProgressBar" style="width:0%; height:100%; background:linear-gradient(90deg, #a855f7, #ec4899); transition:width 0.3s ease;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PIN AUTHENTICATION MODAL -->
+  <div id="pinModal" class="pin-modal-overlay">
+    <div class="pin-box">
+      <div style="font-size:36px; margin-bottom:6px;">🔒🎀</div>
+      <h3 style="color:var(--pink-primary); font-size:16px; font-weight:800; margin-bottom:4px;">Confidential Sanctuary</h3>
+      <!-- NEW (No default password shown): -->
+<p style="font-size:11px; color:var(--text-muted); margin-bottom:14px;">
+  Enter your 4-digit security PIN to access your confidential blueprint.
+</p>
+      <input type="password" id="pinInput" maxlength="8" placeholder="••••" style="text-align:center; font-size:18px; letter-spacing:4px; margin-bottom:12px; width:100%;" onkeyup="if(event.key==='Enter') verifyPin()" />
+      <div style="display:flex; gap:8px;">
+        <button class="pink-btn" style="flex:1; background:#94a3b8;" onclick="closePinModal()">Cancel</button>
+        <button class="pink-btn" style="flex:1;" onclick="verifyPin()">Unlock ✨</button>
+      </div>
+      <p id="pinErrMsg" style="font-size:11px; color:#dc2626; font-weight:bold; margin-top:8px; display:none;">Incorrect PIN! Please try again.</p>
+    </div>
+  </div>
+
+  <!-- MODULAR MENU CUSTOMIZER MODAL -->
+  <div id="moduleModal" class="pin-modal-overlay">
+    <div class="pin-box" style="max-width:360px; text-align:left;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <strong style="color:var(--pink-primary); font-size:15px;">⚙️ Customize Navigation Menu</strong>
+        <button class="del-btn" onclick="closeModuleCustomizer()">&times;</button>
+      </div>
+      <p style="font-size:11px; color:var(--text-muted); margin-bottom:12px;">Toggle modules on or off to personalize your workspace view:</p>
+      <div id="moduleToggleList" style="display:flex; flex-direction:column; gap:8px;"></div>
+      <div style="display:flex; justify-content:flex-end; margin-top:14px;">
+        <button class="pink-btn" onclick="closeModuleCustomizer()">Save Preferences ✨</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- JAVASCRIPT ENGINE -->
+  <script>
+    // ==========================================
+    // 1. DATA PERSISTENCE & GLOBAL STATE
+    // ==========================================
+    function persist(key, data) {
+      try {
+        localStorage.setItem(key, JSON.stringify(data));
+      } catch (e) {
+        console.error("Storage save failed:", e);
+      }
+    }
+
+    function retrieve(key, fallback) {
+      try {
+        var item = localStorage.getItem(key);
+        return item ? JSON.parse(item) : fallback;
+      } catch (e) {
+        return fallback;
+      }
+    }
+
+    // Default Modular Menu Config
+    var appModules = retrieve('pk_modules', [
+      { id: 'payday', name: 'Payday & Budget Hub 🌸', enabled: true },
+      { id: 'attendance', name: 'Attendance & OT Tracker 📅', enabled: true },
+      { id: 'matrix', name: 'Salary & OT Matrix 📑', enabled: true },
+      { id: 'goals', name: 'Little Life & Goals Hub ✨', enabled: true },
+      { id: 'locked', name: 'Secret Ledger (Locked) 🔒', enabled: true }
+    ]);
+
+    var activeCutoff = localStorage.getItem('pk_cutoff') || '10th';
+    var pagIbigSchedule = localStorage.getItem('pk_pagibig_sched') || '25th';
+    var diaryPin = localStorage.getItem('pk_pin') || "1234";
+    var isSectionUnlocked = false;
+
+    // ==========================================
+    // 2. MODULAR NAVIGATION & DRAWER SYSTEM
+    // ==========================================
+    function toggleDrawer() {
+      var overlay = document.getElementById('drawerOverlay');
+      var menu = document.getElementById('drawerMenu');
+      overlay.classList.toggle('open');
+      menu.classList.toggle('open');
+    }
+
+    function navigateTo(viewId, element) {
+      var views = document.querySelectorAll('.section-view');
+      views.forEach(function(v) { v.classList.remove('active-view'); });
+
+      var targetView = document.getElementById('view-' + viewId);
+      if (targetView) targetView.classList.add('active-view');
+
+      var navItems = document.querySelectorAll('.nav-item');
+      navItems.forEach(function(i) { i.classList.remove('active'); });
+      if (element) element.classList.add('active');
+
+      var overlay = document.getElementById('drawerOverlay');
+      var menu = document.getElementById('drawerMenu');
+      if (overlay && menu) {
+        overlay.classList.remove('open');
+        menu.classList.remove('open');
+      }
+
+      // Lifecycle hooks on section change
+      if (viewId === 'payday') refreshHub();
+      if (viewId === 'goals') renderTodayHabits();
+      if (viewId === 'attendance') {
+        renderAttendanceLogs();
+        renderShiftCalendar();
+      }
+      if (viewId === 'locked') {
+        syncLockedHubData();
+        calculateDatePlanner();
+        recalculateDebtPlan();
+        updateSavingsGoalProgress();
+      }
+    }
+
+    function renderNavMenuModules() {
+      var container = document.getElementById('navMenuItems');
+      if (!container) return;
+      container.innerHTML = '';
+
+      appModules.forEach(function(mod) {
+        if (mod.enabled) {
+          var item = document.createElement('div');
+          item.id = 'nav_' + mod.id;
+          item.className = 'nav-item';
+          item.innerText = mod.name;
+          item.onclick = function() {
+            if (mod.id === 'locked') {
+              promptUnlockLockedSection(this);
+            } else {
+              navigateTo(mod.id, this);
+            }
+          };
+          container.appendChild(item);
+        }
+      });
+    }
+
+    function openModuleCustomizer() {
+      var container = document.getElementById('moduleToggleList');
+      container.innerHTML = '';
+      appModules.forEach(function(mod, idx) {
+        var row = document.createElement('label');
+        row.style.display = 'flex';
+        row.style.alignItems = 'center';
+        row.style.justifyContent = 'space-between';
+        row.style.padding = '6px 8px';
+        row.style.border = '1px solid #f1f5f9';
+        row.style.borderRadius = '8px';
+        row.style.fontSize = '12px';
+        row.innerHTML = '<span>' + mod.name + '</span>' +
+          '<input type="checkbox" ' + (mod.enabled ? 'checked' : '') + ' onchange="toggleModuleEnabled(' + idx + ', this.checked)" style="width:16px; height:16px;" />';
+        container.appendChild(row);
+      });
+      document.getElementById('moduleModal').classList.add('show');
+    }
+
+    function toggleModuleEnabled(idx, state) {
+      appModules[idx].enabled = state;
+      persist('pk_modules', appModules);
+      renderNavMenuModules();
+    }
+
+    function closeModuleCustomizer() {
+      document.getElementById('moduleModal').classList.remove('show');
+    }
+
+    // ==========================================
+    // 3. PIN SECURITY & LOCK ENGINE
+    // ==========================================
+    function promptUnlockLockedSection(element) {
+      document.getElementById('pinErrMsg').style.display = 'none';
+      document.getElementById('pinInput').value = '';
+      document.getElementById('pinModal').classList.add('show');
+      setTimeout(function() { document.getElementById('pinInput').focus(); }, 150);
+    }
+
+    function verifyPin() {
+      var entered = document.getElementById('pinInput').value.trim();
+      if (entered === diaryPin) {
+        closePinModal();
+        var lockedNav = document.getElementById('nav_locked');
+        navigateTo('locked', lockedNav);
+      } else {
+        document.getElementById('pinErrMsg').style.display = 'block';
+        document.getElementById('pinInput').value = '';
+      }
+    }
+
+    function closePinModal() {
+      document.getElementById('pinModal').classList.remove('show');
+    }
+
+    function lockSection() {
+      isSectionUnlocked = false;
+      var paydayNav = document.getElementById('nav_payday');
+      navigateTo('payday', paydayNav);
+    }
+
+    function changePinPrompt() {
+      var curr = prompt("Enter your current PIN:");
+      if (curr === diaryPin) {
+        var nextPin = prompt("Enter your new 4-digit PIN:");
+        if (nextPin && nextPin.length >= 4) {
+          diaryPin = nextPin;
+          localStorage.setItem('pk_pin', diaryPin);
+          alert("✨ Success! Security PIN updated.");
+        } else {
+          alert("PIN must be at least 4 digits.");
+        }
+      } else if (curr !== null) {
+        alert("Incorrect current PIN!");
+      }
+    }
+    
+    // ==========================================
+    // 4. PAYDAY HUB & STATUTORY CALCULATION
+    // ==========================================
+    var defaultCategories = [
+      { id: 'rent', name: 'Apartment Rent', amount: 3500, cutoff: '10th', enabled: true },
+      { id: 'groceries_10', name: 'Groceries (1st Half)', amount: 1200, cutoff: '10th', enabled: true },
+      { id: 'bills', name: 'Utilities & Bills', amount: 500, cutoff: '10th', enabled: true },
+      { id: 'family_10', name: 'Family Support', amount: 1500, cutoff: '10th', enabled: true },
+      { id: 'dues_10', name: 'Debt Payoff Allocation', amount: 1000, cutoff: '10th', enabled: true },
+      { id: 'laundry_10', name: 'Laundry Service', amount: 700, cutoff: '10th', enabled: true },
+      { id: 'groceries_25', name: 'Groceries (2nd Half)', amount: 1200, cutoff: '25th', enabled: true },
+      { id: 'family_25', name: 'Family Support', amount: 1500, cutoff: '25th', enabled: true },
+      { id: 'dues_25', name: 'Debt Payoff Allocation', amount: 1000, cutoff: '25th', enabled: true },
+      { id: 'laundry_25', name: 'Laundry Service', amount: 700, cutoff: '25th', enabled: true },
+      { id: 'misc', name: 'Personal & Misc Allowance', amount: 1500, cutoff: '25th', enabled: true },
+      { id: 'load', name: 'Mobile Data / Connectivity', amount: 1000, cutoff: '25th', enabled: true }
+    ];
+
+    var userCategories = retrieve('pk_categories', defaultCategories);
+    var extraInflows = retrieve('pk_extra_inflow', []);
+    var dailyExpenses = retrieve('pk_daily_expenses', []);
+
+    var autoCycleDetected = (new Date().getDate() <= 15) ? '25th' : '10th';
+    var activeCutoff = localStorage.getItem('pk_cutoff') || autoCycleDetected;
+
+    function applyCutoffButtonsUI() {
+      var btn10 = document.getElementById('btnCutoff10');
+      var btn25 = document.getElementById('btnCutoff25');
+      var label = document.getElementById('activePeriodLabel');
+      var notice = document.getElementById('cutoffLockNotice');
+
+      var currentDay = new Date().getDate();
+      var standardCycle = (currentDay <= 15) ? '25th' : '10th';
+
+      if (activeCutoff === '10th') {
+        if (btn10) { btn10.style.background = 'var(--pink-primary)'; btn10.style.opacity = '1'; }
+        if (btn25) { btn25.style.background = '#94a3b8'; }
+        if (label) label.innerText = '10th Payday Cycle (16th to Month-End)';
+      } else {
+        if (btn25) { btn25.style.background = 'var(--pink-primary)'; btn25.style.opacity = '1'; }
+        if (btn10) { btn10.style.background = '#94a3b8'; }
+        if (label) label.innerText = '25th Payday Cycle (1st to 15th)';
+      }
+
+      if (notice) {
+        if (activeCutoff === standardCycle) {
+          notice.innerText = '🔒 Auto-locked to current calendar day (' + currentDay + '). Tap the other cycle to inspect.';
+        } else {
+          notice.innerText = '⚠️ Inspecting opposite cycle. Current calendar day is ' + currentDay + '.';
+        }
+      }
+    }
+
+    function selectCutoffManually(cycle) {
+      activeCutoff = cycle;
+      localStorage.setItem('pk_cutoff', cycle);
+      applyCutoffButtonsUI();
+      refreshHub();
+      if (typeof syncBlueprintTables === 'function') syncBlueprintTables();
+    }
+
+    function switchCutoff(cutoff) {
+      selectCutoffManually(cutoff);
+    }
+
+    function updatePagIbigSchedule(val) {
+      pagIbigSchedule = val;
+      localStorage.setItem('pk_pagibig_sched', val);
+      refreshHub();
+    }
+
+    function calculateStatutoryDeductions() {
+      // SSS: ₱1,150.00 / mo -> ₱575.00 / cutoff
+      // PhilHealth: ₱575.00 / mo -> ₱287.50 / cutoff
+      // HDMF: ₱200.00 / mo -> ₱100.00 / cutoff (if split) or ₱200.00 on selected cutoff
+      var sssCutoff = 575.00;
+      var philHealthCutoff = 287.50;
+      var hdmfCutoff = 0;
+
+      if (pagIbigSchedule === 'split') {
+        hdmfCutoff = 100.00;
+      } else if (pagIbigSchedule === '10th' && activeCutoff === '10th') {
+        hdmfCutoff = 200.00;
+      } else if (pagIbigSchedule === '25th' && activeCutoff === '25th') {
+        hdmfCutoff = 200.00;
+      }
+
+      var totalMandatory = sssCutoff + philHealthCutoff + hdmfCutoff;
+      return {
+        sss: sssCutoff,
+        philhealth: philHealthCutoff,
+        hdmf: hdmfCutoff,
+        total: totalMandatory
+      };
+    }
+
+    function computeBirWithholdingTax(taxableCutoff) {
+      // 1. Calculate any extra earnings from OT or holiday shifts
+      var otBonus = typeof calculateCutoffOtBonus === 'function' ? calculateCutoffOtBonus() : 0;
+
+      // 2. Base salary of ₱23,000/mo (₱11,500/cutoff) is 100% TRAIN Law Exempt
+      if (otBonus <= 0) {
+        return { tax: 0.00, label: 'TRAIN Law Exempt' };
+      }
+
+      // 3. Official semi-monthly taxable base after mandatory statutory deductions
+      var baseTaxableThreshold = 10537.50;
+
+      if (taxableCutoff <= baseTaxableThreshold) {
+        return { tax: 0.00, label: 'TRAIN Law Exempt' };
+      }
+
+      // 4. Tax applies only to the excess earnings generated from overtime / extra shifts
+      var excess = taxableCutoff - baseTaxableThreshold;
+      var tax = excess * 0.15;
+
+      return { tax: tax, label: '15% on excess OT' };
+    }
+
+    function refreshHub() {
+      var baseGrossCutoff = 11500;
+      var otBonus = typeof calculateCutoffOtBonus === 'function' ? calculateCutoffOtBonus() : 0;
+      var grossCutoff = baseGrossCutoff + otBonus;
+
+      var grossEl = document.getElementById('estCutoffGross');
+      var otBonusEl = document.getElementById('otBonusNote');
+      if (grossEl) grossEl.innerText = '₱' + grossCutoff.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (otBonusEl) otBonusEl.innerText = otBonus > 0 ? '+₱' + otBonus.toFixed(2) + ' OT / Holiday' : '+₱0.00 OT';
+
+      // Deductions & Withholding Tax
+      var deductions = calculateStatutoryDeductions();
+      var dedEl = document.getElementById('cutoffMandatoryDed');
+      var dedBreakdownEl = document.getElementById('statutoryBreakdownNote');
+      if (dedEl) dedEl.innerText = '₱' + deductions.total.toFixed(2);
+      if (dedBreakdownEl) dedBreakdownEl.innerText = 'SSS ₱' + deductions.sss.toFixed(2) + ' | PHIC ₱' + deductions.philhealth.toFixed(2) + ' | HDMF ₱' + deductions.hdmf.toFixed(2);
+
+      var taxableCutoff = Math.max(0, grossCutoff - deductions.total);
+      var taxResult = computeBirWithholdingTax(taxableCutoff);
+      var taxEl = document.getElementById('cutoffTaxDisplay');
+      var taxLabelEl = document.getElementById('taxBracketLabel');
+      if (taxEl) taxEl.innerText = '₱' + taxResult.tax.toFixed(2);
+      if (taxLabelEl) taxLabelEl.innerText = taxResult.label;
+
+      // Net Take-Home Paycheck (Standard Base: ₱10,537.50)
+      var netTakeHome = grossCutoff - deductions.total - taxResult.tax;
+      var netSahodEl = document.getElementById('estCutoffSahod');
+      if (netSahodEl) netSahodEl.innerText = '₱' + netTakeHome.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      renderFixedBillsTable();
+      renderExtraIncomeRows();
+      renderDailyExpenseRows();
+      calculatePacingAndPocket(netTakeHome);
+    }
+
+    function renderFixedBillsTable() {
+      var tbody = document.getElementById('fixedBillsTbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      var totalBills = 0;
+
+      userCategories.forEach(function(cat, idx) {
+        if (cat.cutoff === activeCutoff && cat.enabled) {
+          totalBills += cat.amount;
+          var tr = document.createElement('tr');
+          tr.innerHTML = '<td>' + cat.name + '</td>' +
+            '<td style="text-align:right;"><input type="number" value="' + cat.amount + '" style="width:90px; text-align:right; padding:4px 6px; font-size:11.5px;" onchange="updateCategoryAmount(' + idx + ', this.value)" /></td>';
+          tbody.appendChild(tr);
+        }
+      });
+
+      document.getElementById('totalFixedBillsDisplay').innerText = '₱' + totalBills.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return totalBills;
+    }
+
+    function updateCategoryAmount(idx, newAmount) {
+      userCategories[idx].amount = parseFloat(newAmount) || 0;
+      persist('pk_categories', userCategories);
+      refreshHub();
+      if (typeof syncLockedHubData === 'function') syncLockedHubData();
+      syncBlueprintTables();
+    }
+
+    // Dynamic Live Sync for Confidential Notebook Blueprint
+    function syncBlueprintTables() {
+      var tbody10 = document.getElementById('blueprintTable10th');
+      var tbody25 = document.getElementById('blueprintTable25th');
+      if (!tbody10 || !tbody25) return;
+
+      tbody10.innerHTML = '';
+      tbody25.innerHTML = '';
+
+      var total10 = 0;
+      var total25 = 0;
+
+      userCategories.forEach(function(cat, idx) {
+        if (!cat.enabled) return;
+
+        var amountVal = parseFloat(cat.amount) || 0;
+        var row = document.createElement('tr');
+        row.innerHTML = '<td style="color:#b91c1c; font-weight:600; padding:4px 6px;">' + cat.name.toLowerCase() + '</td>' +
+          '<td style="text-align:right; padding:4px 6px;"><input type="number" value="' + amountVal + '" style="width:85px; text-align:right; border:none; border-bottom:1px dashed #cbd5e1; background:transparent; font-family:inherit; font-size:13.5px; color:#b91c1c; font-weight:700; padding:2px 4px;" onchange="updateCategoryAmount(' + idx + ', this.value)" /></td>';
+
+        if (cat.cutoff === '10th') {
+          total10 += amountVal;
+          tbody10.appendChild(row);
+        } else if (cat.cutoff === '25th') {
+          total25 += amountVal;
+          tbody25.appendChild(row);
+        }
+      });
+
+      // Official semi-monthly net base: ₱21,075.00 / 2 = ₱10,537.50
+      var netSemiMonthly = 10537.50;
+      var left10 = netSemiMonthly - total10; // 10,537.50 - 8,400.00 = 2,137.50
+      var left25 = netSemiMonthly - total25; // 10,537.50 - 6,900.00 = 3,637.50
+
+      var money10El = document.getElementById('blueprintMoneyLeft10');
+      var money25El = document.getElementById('blueprintMoneyLeft25');
+      if (money10El) money10El.innerText = '₱' + left10.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (money25El) money25El.innerText = '₱' + left25.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function calculatePacingAndPocket(netTakeHome) {
+      var totalBills = 0;
+      userCategories.forEach(function(cat) {
+        if (cat.cutoff === activeCutoff && cat.enabled) {
+          totalBills += cat.amount;
+        }
+      });
+
+      // Extra Inflows for current cutoff
+      var totalExtra = 0;
+      extraInflows.forEach(function(item) {
+        if (item.cutoff === activeCutoff) totalExtra += item.amount;
+      });
+
+      // Daily allowance tracking
+      var totalSpent = 0;
+      var todayStr = new Date().toISOString().split('T')[0];
+      var spentToday = 0;
+
+      dailyExpenses.forEach(function(exp) {
+        if (exp.cutoff === activeCutoff) {
+          totalSpent += exp.cost;
+          if (exp.date === todayStr) spentToday += exp.cost;
+        }
+      });
+
+      var safePocketRemaining = (netTakeHome - totalBills + totalExtra) - totalSpent;
+      document.getElementById('tirangPeraDisplay').innerText = '₱' + safePocketRemaining.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      // Daily Allowance Pacing (15-day cycle standard)
+      var daysInCutoff = 15;
+      var safeDailyLimit = Math.max(0, safePocketRemaining / daysInCutoff);
+      document.getElementById('targetDailyEstimate').innerText = '₱' + safeDailyLimit.toFixed(2) + ' / day';
+      document.getElementById('dailyBudgetPill').innerText = '₱' + safeDailyLimit.toFixed(2) + ' / day pace';
+      document.getElementById('spentTodayDisplay').innerText = '₱' + spentToday.toFixed(2);
+
+      var statusAlert = document.getElementById('dailyStatusAlert');
+      if (spentToday > safeDailyLimit && safeDailyLimit > 0) {
+        statusAlert.innerText = '⚠️ Spending slightly above daily pace';
+        statusAlert.style.color = '#dc2626';
+      } else {
+        statusAlert.innerText = '✨ Within healthy daily pace';
+        statusAlert.style.color = '#059669';
+      }
+    }
+
+    // Extra Inflows Handlers
+    function addExtraIncome() {
+      var desc = document.getElementById('extraIncomeDesc').value.trim();
+      var amt = parseFloat(document.getElementById('extraIncomeAmt').value) || 0;
+      if (!desc || amt <= 0) return alert('Please enter a valid source and amount.');
+
+      extraInflows.push({ id: Date.now(), desc: desc, amount: amt, cutoff: activeCutoff });
+      persist('pk_extra_inflow', extraInflows);
+      document.getElementById('extraIncomeDesc').value = '';
+      document.getElementById('extraIncomeAmt').value = '';
+      refreshHub();
+    }
+
+    function deleteExtraIncome(id) {
+      extraInflows = extraInflows.filter(function(x) { return x.id !== id; });
+      persist('pk_extra_inflow', extraInflows);
+      refreshHub();
+    }
+
+    function renderExtraIncomeRows() {
+      var tbody = document.getElementById('extraIncomeRows');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      var sum = 0;
+      extraInflows.forEach(function(item) {
+        if (item.cutoff === activeCutoff) {
+          sum += item.amount;
+          var tr = document.createElement('tr');
+          tr.innerHTML = '<td>' + item.desc + '</td>' +
+            '<td>' + item.cutoff + '</td>' +
+            '<td style="text-align:right; font-weight:bold; color:var(--blue-primary);">+₱' + item.amount.toFixed(2) + '</td>' +
+            '<td style="text-align:right;"><button class="del-btn" onclick="deleteExtraIncome(' + item.id + ')">&times;</button></td>';
+          tbody.appendChild(tr);
+        }
+      });
+      document.getElementById('totalExtraInflow').innerText = '+₱' + sum.toFixed(2);
+    }
+
+    // Daily Expenses Handlers
+    function addDailyExpense() {
+      var date = document.getElementById('expenseDateInput').value || new Date().toISOString().split('T')[0];
+      var desc = document.getElementById('expenseDescInput').value.trim();
+      var cost = parseFloat(document.getElementById('expenseCostInput').value) || 0;
+      var category = document.getElementById('expenseCategoryInput').value;
+
+      if (!desc || cost <= 0) return alert('Please enter description and cost.');
+
+      dailyExpenses.unshift({ id: Date.now(), date: date, desc: desc, cost: cost, category: category, cutoff: activeCutoff });
+      persist('pk_daily_expenses', dailyExpenses);
+      document.getElementById('expenseDescInput').value = '';
+      document.getElementById('expenseCostInput').value = '';
+      refreshHub();
+    }
+
+    function deleteDailyExpense(id) {
+      dailyExpenses = dailyExpenses.filter(function(x) { return x.id !== id; });
+      persist('pk_daily_expenses', dailyExpenses);
+      refreshHub();
+    }
+
+    function renderDailyExpenseRows() {
+      var tbody = document.getElementById('expenseRows');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      dailyExpenses.forEach(function(exp) {
+        if (exp.cutoff === activeCutoff) {
+          var tr = document.createElement('tr');
+          tr.innerHTML = '<td>' + exp.date + '</td>' +
+            '<td>' + exp.desc + '</td>' +
+            '<td><span class="badge" style="background:#f1f5f9; color:#475569;">' + exp.category + '</span></td>' +
+            '<td style="text-align:right; font-weight:bold; color:#be185d;">-₱' + exp.cost.toFixed(2) + '</td>' +
+            '<td style="text-align:right;"><button class="del-btn" onclick="deleteDailyExpense(' + exp.id + ')">&times;</button></td>';
+          tbody.appendChild(tr);
+        }
+      });
+    }
+    
+    // ==========================================
+    // 5. SHIFT ATTENDANCE & DOLE OT CALCULATION
+    // ==========================================
+    var attendanceLogs = retrieve('pk_attendance_logs', []);
+
+    // DOLE factor 261 base rates for ₱23,000 monthly
+    // Company Handbook Formula (Factor 313, ₱23,000 Monthly Base)
+    var FACTOR = 313;
+    var DAILY_BASE = (23000 * 12) / FACTOR; // ₱881.789 per day
+    var HOURLY_BASE = DAILY_BASE / 8; // ₱110.224 per hour
+    
+    // Multipliers matching your handbook table
+    var REG_OT_RATE = HOURLY_BASE * 1.25; // ₱137.78/hr (ROT)
+    var REST_DAY_HOURLY = HOURLY_BASE * 1.30; // ₱143.29/hr
+    var REST_DAY_OT_RATE = HOURLY_BASE * 1.69; // ₱186.27/hr (SDOT)
+
+    function calculateCutoffOtBonus() {
+      var totalPremium = 0;
+      attendanceLogs.forEach(function(entry) {
+        if (entry.cutoff === activeCutoff) {
+          totalPremium += (entry.earnedBonus || 0);
+        }
+      });
+      return totalPremium;
+    }
+
+    function logAttendanceShift() {
+      var dateVal = document.getElementById('attendDateInput').value;
+      var shiftType = document.getElementById('attendShiftType').value;
+      var shiftCategory = document.getElementById('attendShiftCategory').value;
+      var extraOtHours = parseFloat(document.getElementById('attendOtHours').value) || 0;
+
+      if (!dateVal) return alert('Please choose a date for this shift.');
+
+      var earnedBonus = 0;
+      var isExtraDay = (shiftCategory === 'Extra OT Shift');
+
+      // 1. Shift Type Calculations
+      if (shiftType === '12-Hour Shift') {
+        if (isExtraDay) {
+          // 5th-Day Extra Duty on 12h schedule: Full Rest Day premium
+          // 8 hours at 130% + 4 hours at Rest Day OT (169%)
+          earnedBonus = (8 * REST_DAY_HOURLY) + (4 * REST_DAY_OT_RATE);
+        } else {
+          // Normal 12h day has 4 hours mandatory OT built-in beyond base daily pay
+          earnedBonus = 4 * REG_OT_RATE;
+        }
+      } else if (shiftType === '8-Hour Shift') {
+        if (isExtraDay) {
+          // 6th-Day Extra Duty on 8h schedule: 8 hours at 130% Rest Day rate
+          earnedBonus = 8 * REST_DAY_HOURLY;
+        } else {
+          earnedBonus = 0; // Standard scheduled shift covered in base salary
+        }
+      } else if (shiftType === 'Regular Holiday') {
+        // 200% total (100% additional premium over regular base pay)
+        earnedBonus = DAILY_BASE;
+      } else if (shiftType === 'Special Holiday') {
+        // 130% total (30% additional premium)
+        earnedBonus = DAILY_BASE * 0.30;
+      } else if (shiftType === 'Rest Day' && isExtraDay) {
+        // General Rest Day duty
+        earnedBonus = DAILY_BASE * 1.30;
+      }
+
+      // 2. Add any incidental additional OT hours logged
+      if (extraOtHours > 0) {
+        if (isExtraDay) {
+          earnedBonus += (extraOtHours * REST_DAY_OT_RATE);
+        } else {
+          earnedBonus += (extraOtHours * REG_OT_RATE);
+        }
+      }
+
+      // Overwrite if entry on same date already exists
+      attendanceLogs = attendanceLogs.filter(function(x) { return x.date !== dateVal; });
+
+      attendanceLogs.push({
+        id: Date.now(),
+        date: dateVal,
+        shiftType: shiftType,
+        shiftCategory: shiftCategory,
+        extraOtHours: extraOtHours,
+        earnedBonus: earnedBonus,
+        cutoff: activeCutoff
+      });
+
+      persist('pk_attendance_logs', attendanceLogs);
+      document.getElementById('attendOtHours').value = '';
+
+      renderAttendanceLogs();
+      renderShiftCalendar();
+      refreshHub();
+    }
+
+    function deleteAttendanceShift(id) {
+      attendanceLogs = attendanceLogs.filter(function(x) { return x.id !== id; });
+      persist('pk_attendance_logs', attendanceLogs);
+      renderAttendanceLogs();
+      renderShiftCalendar();
+      refreshHub();
+    }
+
+    function renderAttendanceLogs() {
+      var container = document.getElementById('attendanceLogsList');
+      if (!container) return;
+      container.innerHTML = '';
+
+      var filtered = attendanceLogs.filter(function(x) { return x.cutoff === activeCutoff; });
+      filtered.sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<div style="font-size:11.5px; color:var(--text-muted); font-style:italic; padding:6px 0;">No shifts logged yet for this cutoff.</div>';
+        return;
+      }
+
+      filtered.forEach(function(item) {
+        var row = document.createElement('div');
+        row.style.display = 'flex';
+        row.style.justifyContent = 'space-between';
+        row.style.alignItems = 'center';
+        row.style.background = '#fff';
+        row.style.border = '1px solid #e2e8f0';
+        row.style.borderRadius = '10px';
+        row.style.padding = '8px 12px';
+        row.style.fontSize = '12px';
+
+        var badgeBg = '#e0f2fe';
+        var badgeColor = '#0284c7';
+        if (item.shiftCategory === 'Extra OT Shift') {
+          badgeBg = '#ffedd5';
+          badgeColor = '#c2410c';
+        } else if (item.shiftType.indexOf('Rest Day') !== -1) {
+          badgeBg = '#f3e8ff';
+          badgeColor = '#7e22ce';
+        } else if (item.shiftType.indexOf('Holiday') !== -1) {
+          badgeBg = '#fef3c7';
+          badgeColor = '#b45309';
+        }
+
+        row.innerHTML = '<div>' +
+          '<strong>' + item.date + '</strong> — ' + item.shiftType +
+          (item.shiftCategory === 'Extra OT Shift' ? ' <span class="badge" style="background:' + badgeBg + '; color:' + badgeColor + '; font-size:9.5px;">Extra Duty</span>' : '') +
+          (item.extraOtHours > 0 ? ' <span style="font-size:10.5px; color:var(--pink-primary); font-weight:bold;">(+' + item.extraOtHours + 'h OT)</span>' : '') +
+          '</div>' +
+          '<div style="display:flex; align-items:center; gap:8px;">' +
+          '<span style="font-weight:800; color:' + (item.earnedBonus > 0 ? 'var(--blue-primary)' : 'var(--text-muted)') + ';">' +
+          (item.earnedBonus > 0 ? '+₱' + item.earnedBonus.toFixed(2) : 'Regular') +
+          '</span>' +
+          '<button class="del-btn" onclick="deleteAttendanceShift(' + item.id + ')">&times;</button>' +
+          '</div>';
+        container.appendChild(row);
+      });
+    }
+
+    // ==========================================
+    // 6. COLOR-CODED SHIFT CALENDAR GRID (FULL MONTH)
+    // ==========================================
+    var calendarViewDate = new Date();
+
+    function changeCalendarMonth(delta) {
+      calendarViewDate.setMonth(calendarViewDate.getMonth() + delta);
+      renderShiftCalendar();
+    }
+
+    function renderShiftCalendar() {
+      var grid = document.getElementById('shiftCalendarGrid');
+      var monthLabel = document.getElementById('shiftCalendarMonthLabel');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      var year = calendarViewDate.getFullYear();
+      var month = calendarViewDate.getMonth();
+      var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      if (monthLabel) monthLabel.innerText = monthNames[month] + ' ' + year;
+
+      var firstDayIndex = new Date(year, month, 1).getDay();
+      var totalDays = new Date(year, month + 1, 0).getDate();
+
+      // Pad previous month days with faint blanks
+      for (var p = 0; p < firstDayIndex; p++) {
+        var blank = document.createElement('div');
+        blank.style.padding = '8px 2px';
+        blank.style.background = '#f8fafc';
+        blank.style.borderRadius = '8px';
+        blank.style.opacity = '0.2';
+        grid.appendChild(blank);
+      }
+
+      // Render ALL days of the month (1 to 28/30/31) without dimming
+      for (var d = 1; d <= totalDays; d++) {
+        var dayStr = d < 10 ? '0' + d : '' + d;
+        var monthStr = (month + 1) < 10 ? '0' + (month + 1) : '' + (month + 1);
+        var dateKey = year + '-' + monthStr + '-' + dayStr;
+
+        var shiftEntry = attendanceLogs.find(function(x) { return x.date === dateKey; });
+
+        var cell = document.createElement('div');
+        cell.style.padding = '6px 2px';
+        cell.style.borderRadius = '8px';
+        cell.style.fontSize = '11px';
+        cell.style.fontWeight = '700';
+        cell.style.border = '1px solid #e2e8f0';
+        cell.style.display = 'flex';
+        cell.style.flexDirection = 'column';
+        cell.style.alignItems = 'center';
+        cell.style.justifyContent = 'center';
+        cell.style.minHeight = '42px';
+        cell.style.background = '#ffffff';
+
+        var dot = '';
+        if (shiftEntry) {
+          if (shiftEntry.shiftCategory === 'Extra OT Shift') {
+            cell.style.background = '#ffedd5';
+            cell.style.borderColor = '#fdba74';
+            cell.style.color = '#c2410c';
+            dot = '<span style="width:6px; height:6px; border-radius:50%; background:#ea580c; margin-top:2px;"></span>';
+          } else if (shiftEntry.shiftType.indexOf('Rest Day') !== -1) {
+            cell.style.background = '#f3e8ff';
+            cell.style.borderColor = '#d8b4fe';
+            cell.style.color = '#7e22ce';
+            dot = '<span style="width:6px; height:6px; border-radius:50%; background:#a855f7; margin-top:2px;"></span>';
+          } else if (shiftEntry.shiftType.indexOf('Holiday') !== -1) {
+            cell.style.background = '#fef3c7';
+            cell.style.borderColor = '#fcd34d';
+            cell.style.color = '#b45309';
+            dot = '<span style="width:6px; height:6px; border-radius:50%; background:#f59e0b; margin-top:2px;"></span>';
+          } else {
+            // Standard regular scheduled work day
+            cell.style.background = '#e0f2fe';
+            cell.style.borderColor = '#bae6fd';
+            cell.style.color = '#0284c7';
+            dot = '<span style="width:6px; height:6px; border-radius:50%; background:#0284c7; margin-top:2px;"></span>';
+          }
+        }
+
+        cell.innerHTML = '<span>' + d + '</span>' + dot;
+        grid.appendChild(cell);
+      }
+    }
+    
+    // ==========================================
+    // 7. HYDRATION, DAILY HABITS & WELLNESS
+    // ==========================================
+    var habitRecords = retrieve('pk_habit_records', {});
+    var activeMilestones = retrieve('pk_milestones', {});
+    var convertedDailyHabits = retrieve('pk_converted_habits', []);
+    var laserSessionsDone = retrieve('pk_laser_sessions', 0);
+
+    function getTodayKey() {
+      return new Date().toISOString().split('T')[0];
+    }
+
+    function renderTodayHabits() {
+      var today = getTodayKey();
+      var todayData = habitRecords[today] || { water: [], habits: {} };
+
+      // 1. Water Glasses (1 to 8)
+      var waterCount = 0;
+      for (var i = 1; i <= 8; i++) {
+        var box = document.getElementById('w' + i);
+        var checked = (todayData.water && todayData.water.indexOf(i) !== -1);
+        if (box) box.checked = checked;
+        if (checked) waterCount++;
+      }
+      var waterBadge = document.getElementById('waterCountBadge');
+      if (waterBadge) waterBadge.innerText = waterCount + ' / 8 Glasses';
+
+      // 2. Core Daily Habits
+      var defaultHabits = ['habit_workout', 'habit_reading', 'habit_eating', 'habit_partner'];
+      var doneCount = 0;
+      defaultHabits.forEach(function(hId) {
+        var box = document.getElementById(hId);
+        var checked = !!(todayData.habits && todayData.habits[hId]);
+        if (box) box.checked = checked;
+        if (checked) doneCount++;
+      });
+
+      // 3. Render Converted Custom Habits
+      var convContainer = document.getElementById('convertedDailyHabitsList');
+      if (convContainer) {
+        convContainer.innerHTML = '';
+        convertedDailyHabits.forEach(function(item) {
+          var checked = !!(todayData.habits && todayData.habits[item.id]);
+          if (checked) doneCount++;
+
+          var label = document.createElement('label');
+          label.style.background = '#f0fdf4';
+          label.style.border = '1.5px solid #bbf7d0';
+          label.style.borderRadius = '12px';
+          label.style.padding = '10px 12px';
+          label.style.fontSize = '12px';
+          label.style.display = 'flex';
+          label.style.alignItems = 'center';
+          label.style.justifyContent = 'space-between';
+          label.style.cursor = 'pointer';
+
+          label.innerHTML = '<div style="display:flex; align-items:center; gap:8px;">' +
+            '<input type="checkbox" ' + (checked ? 'checked' : '') + ' onchange="toggleConvertedHabit(\'' + item.id + '\', this.checked)" style="width:18px; height:18px;" />' +
+            '<span>' + item.title + '</span>' +
+            '</div>' +
+            '<span style="font-size:10px; color:#15803d; font-weight:bold;">' + item.tag + '</span>';
+          convContainer.appendChild(label);
+        });
+      }
+
+      var totalHabitsCount = defaultHabits.length + convertedDailyHabits.length;
+      var rateLabel = document.getElementById('habitCompletionRate');
+      if (rateLabel) rateLabel.innerText = doneCount + '/' + totalHabitsCount + ' Done';
+
+      // 4. Milestones & Wishlist items state restore
+      ['derma', 'mental', 'courses', 'sidehustle', 'weeklyclean', 'vacuum', 'washing', 'sampayan', 'cabinet', 'aptsearch'].forEach(function(mId) {
+        var box = document.getElementById('goal_' + mId) || document.getElementById('item_' + mId);
+        if (box) box.checked = !!activeMilestones[mId];
+      });
+
+      var laserText = document.getElementById('laserCountText');
+      if (laserText) laserText.innerText = laserSessionsDone + ' Sessions Done';
+
+      renderHabitConsistencyGrid();
+      if (typeof renderCustomGoalsList === 'function') renderCustomGoalsList();
+    }
+
+    function toggleWaterGlass(glassNum) {
+      var today = getTodayKey();
+      if (!habitRecords[today]) habitRecords[today] = { water: [], habits: {} };
+      if (!habitRecords[today].water) habitRecords[today].water = [];
+
+      var idx = habitRecords[today].water.indexOf(glassNum);
+      if (idx === -1) {
+        habitRecords[today].water.push(glassNum);
+      } else {
+        habitRecords[today].water.splice(idx, 1);
+      }
+
+      persist('pk_habit_records', habitRecords);
+      renderTodayHabits();
+    }
+
+    function saveHabitProgress() {
+      var today = getTodayKey();
+      if (!habitRecords[today]) habitRecords[today] = { water: [], habits: {} };
+      if (!habitRecords[today].habits) habitRecords[today].habits = {};
+
+      ['habit_workout', 'habit_reading', 'habit_eating', 'habit_partner'].forEach(function(hId) {
+        var box = document.getElementById(hId);
+        habitRecords[today].habits[hId] = box ? box.checked : false;
+      });
+
+      persist('pk_habit_records', habitRecords);
+      renderTodayHabits();
+    }
+
+    function toggleConvertedHabit(habitId, isChecked) {
+      var today = getTodayKey();
+      if (!habitRecords[today]) habitRecords[today] = { water: [], habits: {} };
+      if (!habitRecords[today].habits) habitRecords[today].habits = {};
+
+      habitRecords[today].habits[habitId] = isChecked;
+      persist('pk_habit_records', habitRecords);
+      renderTodayHabits();
+    }
+
+    function addLaserSession() {
+      laserSessionsDone++;
+      persist('pk_laser_sessions', laserSessionsDone);
+      var el = document.getElementById('laserCountText');
+      if (el) el.innerText = laserSessionsDone + ' Sessions Done';
+    }
+
+    function resetLaserSessions() {
+      if (confirm("Reset laser diode session counter to 0?")) {
+        laserSessionsDone = 0;
+        persist('pk_laser_sessions', 0);
+        var el = document.getElementById('laserCountText');
+        if (el) el.innerText = '0 Sessions Done';
+      }
+    }
+
+    function toggleMilestone(mId) {
+      activeMilestones[mId] = !activeMilestones[mId];
+      persist('pk_milestones', activeMilestones);
+    }
+
+    function toggleWishlistItem(wId) {
+      activeMilestones[wId] = !activeMilestones[wId];
+      persist('pk_milestones', activeMilestones);
+    }
+
+    function renderHabitConsistencyGrid() {
+      var grid = document.getElementById('habitGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      var now = new Date();
+      var year = now.getFullYear();
+      var month = now.getMonth();
+      var totalDays = new Date(year, month + 1, 0).getDate();
+
+      for (var d = 1; d <= totalDays; d++) {
+        var dayStr = d < 10 ? '0' + d : '' + d;
+        var monthStr = (month + 1) < 10 ? '0' + (month + 1) : '' + (month + 1);
+        var key = year + '-' + monthStr + '-' + dayStr;
+
+        var dayRecord = habitRecords[key];
+        var isAllDone = false;
+        if (dayRecord && dayRecord.habits) {
+          var habitsDone = Object.keys(dayRecord.habits).filter(function(k) { return dayRecord.habits[k]; }).length;
+          if (habitsDone >= 3) isAllDone = true;
+        }
+
+        var cell = document.createElement('div');
+        cell.style.padding = '6px 2px';
+        cell.style.borderRadius = '8px';
+        cell.style.fontSize = '10.5px';
+        cell.style.fontWeight = '700';
+        cell.style.border = '1px solid #f1f5f9';
+        cell.style.background = isAllDone ? '#fdf2f8' : '#fafafa';
+        cell.style.color = isAllDone ? 'var(--pink-primary)' : 'var(--text-muted)';
+        cell.innerHTML = '<div>' + d + '</div><div style="font-size:11px;">' + (isAllDone ? '🌸' : '·') + '</div>';
+        grid.appendChild(cell);
+      }
+    }
+    
+    // ==========================================
+    // 8. CANONICAL BIBLE & FICTION READING ENGINE
+    // ==========================================
+    var BIBLE_BOOKS = {
+      OT: [
+        "Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy",
+        "Joshua", "Judges", "Ruth", "1 Samuel", "2 Samuel",
+        "1 Kings", "2 Kings", "1 Chronicles", "2 Chronicles", "Ezra",
+        "Nehemiah", "Esther", "Job", "Psalms", "Proverbs",
+        "Ecclesiastes", "Song of Solomon", "Isaiah", "Jeremiah", "Lamentations",
+        "Ezekiel", "Daniel", "Hosea", "Joel", "Amos",
+        "Obadiah", "Jonah", "Micah", "Nahum", "Habakkuk",
+        "Zephaniah", "Haggai", "Zechariah", "Malachi"
+      ],
+      NT: [
+        "Matthew", "Mark", "Luke", "John", "Acts",
+        "Romans", "1 Corinthians", "2 Corinthians", "Galatians", "Ephesians",
+        "Philippians", "Colossians", "1 Thessalonians", "2 Thessalonians", "1 Timothy",
+        "2 Timothy", "Titus", "Philemon", "Hebrews", "James",
+        "1 Peter", "2 Peter", "1 John", "2 John", "3 John",
+        "Jude", "Revelation"
+      ]
+    };
+
+    var completedBibleBooks = retrieve('pk_bible_completed', []);
+    var fictionBooks = retrieve('pk_fiction_books', []);
+    var customGoals = retrieve('pk_custom_goals', []);
+    var pendingHabitConversion = null;
+
+    function updateBibleBooksDropdown() {
+      var testament = document.getElementById('bibleTestamentSelect').value;
+      var select = document.getElementById('bibleBookSelect');
+      if (!select) return;
+      select.innerHTML = '';
+
+      var books = BIBLE_BOOKS[testament] || [];
+      books.forEach(function(book) {
+        var isDone = completedBibleBooks.indexOf(book) !== -1;
+        var opt = document.createElement('option');
+        opt.value = book;
+        opt.innerText = (isDone ? '✓ ' : '') + book;
+        select.appendChild(opt);
+      });
+    }
+
+    function renderBibleProgress() {
+      var totalBooks = 66;
+      var doneCount = completedBibleBooks.length;
+      var percent = Math.round((doneCount / totalBooks) * 100);
+
+      var label = document.getElementById('bibleTotalProgressLabel');
+      var percentText = document.getElementById('biblePercentText');
+      var bar = document.getElementById('bibleProgressBar');
+
+      if (label) label.innerText = doneCount + '/66 Books Done';
+      if (percentText) percentText.innerText = percent + '% Complete';
+      if (bar) bar.style.width = percent + '%';
+
+      var badgeContainer = document.getElementById('completedBooksBadgeList');
+      if (badgeContainer) {
+        badgeContainer.innerHTML = '';
+        completedBibleBooks.forEach(function(book) {
+          var badge = document.createElement('span');
+          badge.className = 'badge';
+          badge.style.background = '#ffedd5';
+          badge.style.color = '#9a3412';
+          badge.style.border = '1px solid #fed7aa';
+          badge.style.fontSize = '10px';
+          badge.style.display = 'inline-flex';
+          badge.style.alignItems = 'center';
+          badge.style.gap = '4px';
+          badge.innerHTML = book + ' <span style="cursor:pointer; font-weight:800;" onclick="removeCompletedBibleBook(\'' + book + '\')">&times;</span>';
+          badgeContainer.appendChild(badge);
+        });
+      }
+      updateBibleBooksDropdown();
+    }
+
+    function markCurrentBibleBookDone() {
+      var select = document.getElementById('bibleBookSelect');
+      var book = select ? select.value : '';
+      var note = document.getElementById('bibleChapterNote').value.trim();
+
+      if (!book) return;
+
+      if (completedBibleBooks.indexOf(book) === -1) {
+        completedBibleBooks.push(book);
+        persist('pk_bible_completed', completedBibleBooks);
+      }
+
+      if (note) {
+        var savedNotes = retrieve('pk_bible_notes', {});
+        savedNotes[book] = note;
+        persist('pk_bible_notes', savedNotes);
+      }
+
+      document.getElementById('bibleChapterNote').value = '';
+      renderBibleProgress();
+    }
+
+    function removeCompletedBibleBook(book) {
+      completedBibleBooks = completedBibleBooks.filter(function(b) { return b !== book; });
+      persist('pk_bible_completed', completedBibleBooks);
+      renderBibleProgress();
+    }
+
+    // Fiction Reading Shelf Handlers
+    function addFictionBook() {
+      var title = document.getElementById('fictionBookTitle').value.trim();
+      var author = document.getElementById('fictionBookAuthor').value.trim();
+      var progress = document.getElementById('fictionBookProgress').value.trim();
+
+      if (!title) return alert('Please enter the book title.');
+
+      fictionBooks.unshift({
+        id: Date.now(),
+        title: title,
+        author: author || 'Unknown Author',
+        progress: progress || 'Not started',
+        completed: false
+      });
+
+      persist('pk_fiction_books', fictionBooks);
+      document.getElementById('fictionBookTitle').value = '';
+      document.getElementById('fictionBookAuthor').value = '';
+      document.getElementById('fictionBookProgress').value = '';
+      renderFictionBooks();
+    }
+
+    function toggleFictionComplete(id) {
+      fictionBooks.forEach(function(book) {
+        if (book.id === id) book.completed = !book.completed;
+      });
+      persist('pk_fiction_books', fictionBooks);
+      renderFictionBooks();
+    }
+
+    function deleteFictionBook(id) {
+      fictionBooks = fictionBooks.filter(function(book) { return book.id !== id; });
+      persist('pk_fiction_books', fictionBooks);
+      renderFictionBooks();
+    }
+
+    function renderFictionBooks() {
+      var container = document.getElementById('fictionBooksList');
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (fictionBooks.length === 0) {
+        container.innerHTML = '<div style="font-size:11.5px; color:var(--text-muted); font-style:italic; padding:4px 0;">No fiction books logged yet. Add your current read above!</div>';
+        return;
+      }
+
+      fictionBooks.forEach(function(book) {
+        var item = document.createElement('div');
+        item.style.background = book.completed ? '#f0fdf4' : '#fff';
+        item.style.border = '1px solid ' + (book.completed ? '#bbf7d0' : '#fed7aa');
+        item.style.borderRadius = '10px';
+        item.style.padding = '8px 10px';
+        item.style.display = 'flex';
+        item.style.justifyContent = 'space-between';
+        item.style.alignItems = 'center';
+        item.style.fontSize = '11.5px';
+
+        item.innerHTML = '<div>' +
+          '<strong style="color:#9a3412;' + (book.completed ? 'text-decoration:line-through; color:#15803d;' : '') + '">' + book.title + '</strong>' +
+          '<div style="font-size:10px; color:var(--text-muted);">' + book.author + ' · <span style="color:#ea580c; font-weight:bold;">' + book.progress + '</span></div>' +
+          '</div>' +
+          '<div style="display:flex; align-items:center; gap:6px;">' +
+          '<button class="pink-btn" style="padding:4px 8px; font-size:10px; background:' + (book.completed ? '#15803d' : '#ea580c') + ';" onclick="toggleFictionComplete(' + book.id + ')">' +
+          (book.completed ? 'Completed ✓' : 'Mark Done') +
+          '</button>' +
+          '<button class="del-btn" onclick="deleteFictionBook(' + book.id + ')">&times;</button>' +
+          '</div>';
+        container.appendChild(item);
+      });
+    }
+
+    // Custom Goals Handlers
+    function addCustomGoalItem() {
+      var input = document.getElementById('customGoalInput');
+      var val = input.value.trim();
+      if (!val) return alert('Please enter a goal title.');
+
+      customGoals.push({ id: Date.now(), text: val, completed: false });
+      persist('pk_custom_goals', customGoals);
+      input.value = '';
+      renderCustomGoalsList();
+    }
+
+    function toggleCustomGoal(id) {
+      customGoals.forEach(function(g) {
+        if (g.id === id) g.completed = !g.completed;
+      });
+      persist('pk_custom_goals', customGoals);
+      renderCustomGoalsList();
+    }
+
+    function deleteCustomGoal(id) {
+      customGoals = customGoals.filter(function(g) { return g.id !== id; });
+      persist('pk_custom_goals', customGoals);
+      renderCustomGoalsList();
+    }
+
+    function renderCustomGoalsList() {
+      var container = document.getElementById('customGoalsList');
+      if (!container) return;
+      container.innerHTML = '';
+
+      customGoals.forEach(function(g) {
+        var row = document.createElement('div');
+        row.style.display = 'flex';
+        row.style.justifyContent = 'space-between';
+        row.style.alignItems = 'center';
+        row.style.background = '#fff';
+        row.style.border = '1px solid #e2e8f0';
+        row.style.borderRadius = '10px';
+        row.style.padding = '8px 10px';
+        row.style.fontSize = '12px';
+
+        row.innerHTML = '<div style="display:flex; align-items:center; gap:8px;">' +
+          '<input type="checkbox" ' + (g.completed ? 'checked' : '') + ' onchange="toggleCustomGoal(' + g.id + ')" style="width:16px; height:16px;" />' +
+          '<span style="' + (g.completed ? 'text-decoration:line-through; color:var(--text-muted);' : '') + '">' + g.text + '</span>' +
+          '</div>' +
+          '<button class="del-btn" onclick="deleteCustomGoal(' + g.id + ')">&times;</button>';
+        container.appendChild(row);
+      });
+    }
+
+    // ==========================================
+    // 9. HABIT CONVERTER POPUP LOGIC
+    // ==========================================
+    function promptConvertGoalToHabit(goalId, habitTitle, habitTag, checkboxEl) {
+      activeMilestones[goalId] = checkboxEl.checked;
+      persist('pk_milestones', activeMilestones);
+
+      if (checkboxEl.checked) {
+        pendingHabitConversion = { id: 'conv_' + goalId, title: habitTitle, tag: habitTag };
+        document.getElementById('modalGoalTitle').innerText = habitTitle;
+        document.getElementById('habitChoiceModal').classList.add('show');
+      }
+    }
+
+    function confirmConvertToDailyHabit(shouldConvert) {
+      document.getElementById('habitChoiceModal').classList.remove('show');
+      if (shouldConvert && pendingHabitConversion) {
+        var exists = convertedDailyHabits.some(function(item) { return item.id === pendingHabitConversion.id; });
+        if (!exists) {
+          convertedDailyHabits.push(pendingHabitConversion);
+          persist('pk_converted_habits', convertedDailyHabits);
+          renderTodayHabits();
+        }
+      }
+      pendingHabitConversion = null;
+    }
+    
+    // ==========================================
+    // 10. SECRET LEDGER & BLUEPRINT ENGINE
+    // ==========================================
+    var activeTargetGoal = retrieve('pk_target_goal', null);
+    var targetGoalSavedAmt = retrieve('pk_target_saved', 0);
+    var billeaseNegotiatedDiscount = retrieve('pk_billease_disc', 0);
+
+    function syncLockedHubData() {
+      var daysInCutoff = 15;
+      var totalBills = 0;
+      userCategories.forEach(function(c) {
+        if (c.cutoff === activeCutoff && c.enabled) totalBills += c.amount;
+      });
+
+      var totalExtra = 0;
+      extraInflows.forEach(function(i) {
+        if (i.cutoff === activeCutoff) totalExtra += i.amount;
+      });
+
+      var totalSpent = 0;
+      var todayStr = getTodayKey();
+      var spentToday = 0;
+      dailyExpenses.forEach(function(e) {
+        if (e.cutoff === activeCutoff) {
+          totalSpent += e.cost;
+          if (e.date === todayStr) spentToday += e.cost;
+        }
+      });
+
+      var baseGross = 11500;
+      var otBonus = typeof calculateCutoffOtBonus === 'function' ? calculateCutoffOtBonus() : 0;
+      var gross = baseGross + otBonus;
+      var deductions = calculateStatutoryDeductions();
+      var taxable = Math.max(0, gross - deductions.total);
+      var tax = computeBirWithholdingTax(taxable).tax;
+      var net = gross - deductions.total - tax;
+
+      var safePocketRemaining = (net - totalBills + totalExtra) - totalSpent;
+      var safeDailyLimit = Math.max(0, safePocketRemaining / daysInCutoff);
+
+      var syncLimitEl = document.getElementById('lockedDailyLimitSync');
+      var syncSpentEl = document.getElementById('lockedSpentTodaySync');
+      var syncPocketEl = document.getElementById('lockedPocketSync');
+
+      if (syncLimitEl) syncLimitEl.innerText = '₱' + safeDailyLimit.toFixed(2) + ' / day';
+      if (syncSpentEl) syncSpentEl.innerText = '₱' + spentToday.toFixed(2);
+      if (syncPocketEl) syncPocketEl.innerText = '₱' + safePocketRemaining.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    // Quality Time & Partner Date Planner
+    function calculateDatePlanner() {
+      var dining = parseFloat(document.getElementById('dateBudgetInput').value) || 0;
+      var transpo = parseFloat(document.getElementById('partnerTranspoInput').value) || 0;
+      var rollover = parseFloat(document.getElementById('dateRolloverInput').value) || 0;
+
+      var totalNeeded = Math.max(0, (dining + transpo) - rollover);
+      var totalDisplay = document.getElementById('totalNeededDateDisplay');
+      if (totalDisplay) totalDisplay.innerText = '₱' + totalNeeded.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      var banner = document.getElementById('dateAffordabilityBanner');
+      if (banner) {
+        if (totalNeeded === 0) {
+          banner.innerText = '✨ Fully funded by rollover savings!';
+          banner.style.color = '#059669';
+        } else {
+          banner.innerText = '🌸 Ready for scheduled allocation';
+          banner.style.color = '#0284c7';
+        }
+      }
+      return totalNeeded;
+    }
+
+    function saveDateFundRollover() {
+      var dining = parseFloat(document.getElementById('dateBudgetInput').value) || 0;
+      var transpo = parseFloat(document.getElementById('partnerTranspoInput').value) || 0;
+      var unspent = prompt("Enter unspent date funds to carry over to next month (₱):", "0");
+      if (unspent !== null) {
+        var rolloverVal = parseFloat(unspent) || 0;
+        document.getElementById('dateRolloverInput').value = rolloverVal;
+        calculateDatePlanner();
+        alert("✨ Successfully updated quality time rollover fund!");
+      }
+    }
+
+    // Overdue Debt Payoff Estimator
+    // ==========================================
+    // CLEAR & DIRECT OVERDUE LOGIC (WITH WAIVED TOGGLE)
+    // ==========================================
+    var isBilleaseWaived = retrieve('pk_billease_is_waived', false);
+
+    function toggleWaivedBillease(isChecked) {
+      isBilleaseWaived = isChecked;
+      persist('pk_billease_is_waived', isChecked);
+
+      var input = document.getElementById('balanceBillease');
+      if (isChecked) {
+        input.value = "3604.94";
+      } else {
+        input.value = "6325.10";
+      }
+      saveDebtBalances();
+    }
+
+    function submitPayment(type) {
+      if (type === 'tiktok') {
+        var balEl = document.getElementById('balanceTiktok');
+        var payInput = document.getElementById('payTiktokInput');
+        var currentBal = parseFloat(balEl.value) || 0;
+        var payAmt = parseFloat(payInput.value) || 0;
+
+        if (payAmt <= 0) return alert('Please enter a valid payment amount.');
+
+        var newBal = Math.max(0, currentBal - payAmt);
+        balEl.value = newBal.toFixed(2);
+        alert('✨ Logged ₱' + payAmt.toFixed(2) + ' payment for Priority 1 (TikTok). New balance: ₱' + newBal.toFixed(2));
+      } else if (type === 'billease') {
+        var balElB = document.getElementById('balanceBillease');
+        var payInputB = document.getElementById('payBilleaseInput');
+        var currentBalB = parseFloat(balElB.value) || 0;
+        var payAmtB = parseFloat(payInputB.value) || 0;
+
+        if (payAmtB <= 0) return alert('Please enter a valid payment amount.');
+
+        var newBalB = Math.max(0, currentBalB - payAmtB);
+        balElB.value = newBalB.toFixed(2);
+        alert('✨ Logged ₱' + payAmtB.toFixed(2) + ' payment for Priority 2 (BillEase). New balance: ₱' + newBalB.toFixed(2));
+      }
+
+      saveDebtBalances();
+    }
+
+    function saveDebtBalances() {
+      var tVal = parseFloat(document.getElementById('balanceTiktok').value) || 0;
+      var bVal = parseFloat(document.getElementById('balanceBillease').value) || 0;
+
+      persist('pk_bal_tiktok', tVal);
+      persist('pk_bal_billease', bVal);
+      updateSimpleDebtSummary();
+    }
+
+    function updateSimpleDebtSummary() {
+      var tVal = parseFloat(document.getElementById('balanceTiktok').value) || 0;
+      var bVal = parseFloat(document.getElementById('balanceBillease').value) || 0;
+      var summaryBox = document.getElementById('simpleDebtStatus');
+      if (!summaryBox) return;
+
+      var totalOverdue = tVal + bVal;
+      var monthsLeft = Math.ceil(totalOverdue / 1500);
+      var waivedText = isBilleaseWaived ? ' <span style="color:#059669; font-weight:bold;">(BillEase Penalties Waived!)</span>' : '';
+
+      if (totalOverdue <= 0) {
+        summaryBox.innerHTML = '🎉 <strong>DEBT FREE!</strong> All overdue accounts are fully paid. The ₱1,500/month allocation can now go directly to your long-term savings!';
+      } else {
+        summaryBox.innerHTML = '<strong>Payoff Status:</strong> Total remaining balance: <strong>₱' + totalOverdue.toLocaleString('en-US', { minimumFractionDigits: 2 }) + '</strong>' + waivedText +
+          '. With your ₱1,500/month allocation, this will be fully cleared in approximately <strong>' + monthsLeft + ' month(s)</strong>! 🌸';
+      }
+    }
+
+    // Sinking Fund & Budget Diverter
+    function calculatePacingRequirement() {
+      var cost = parseFloat(document.getElementById('targetGoalCost').value) || 0;
+      var targetDateVal = document.getElementById('targetGoalDate').value;
+      var resultBox = document.getElementById('pacingResultBox');
+
+      if (!cost || !targetDateVal) return;
+
+      var now = new Date();
+      var targetDate = new Date(targetDateVal);
+      var diffDays = Math.ceil((targetDate - now) / (1000 * 60 * 60 * 24));
+      var cutoffsRemaining = Math.max(1, Math.ceil(diffDays / 15));
+
+      var perCutoff = cost / cutoffsRemaining;
+
+      var extraInflowOT = document.getElementById('divert_otinflow').checked;
+      var divertDues = document.getElementById('divert_dues_overdue').checked;
+
+      var accelerationNotes = [];
+      if (extraInflowOT) accelerationNotes.push("Using Extra Shift & OT premiums");
+      if (divertDues) accelerationNotes.push("Temporarily pausing ₱750 overdue allocation");
+
+      resultBox.innerHTML = '<strong>Required Pacing:</strong> ₱' + perCutoff.toFixed(2) + ' per cutoff (' + cutoffsRemaining + ' cutoffs remaining across ' + diffDays + ' days).<br>' +
+        '<span style="font-size:11px; color:#475569;">Active boosts: ' + (accelerationNotes.length > 0 ? accelerationNotes.join(', ') : 'Standard pocket discipline') + '</span>';
+
+      updateTargetGoalProgressBar(cost);
+    }
+
+    function updateTargetGoalProgressBar(cost) {
+      var percent = cost > 0 ? Math.min(100, Math.round((targetGoalSavedAmt / cost) * 100)) : 0;
+      var label = document.getElementById('targetGoalProgressLabel');
+      var percentEl = document.getElementById('targetGoalPercent');
+      var bar = document.getElementById('targetGoalProgressBar');
+
+      if (label) label.innerText = 'Saved Toward Goal: ₱' + targetGoalSavedAmt.toFixed(2) + ' / ₱' + cost.toFixed(2);
+      if (percentEl) percentEl.innerText = percent + '%';
+      if (bar) bar.style.width = percent + '%';
+    }
+
+    function saveActiveTargetGoal() {
+      var name = document.getElementById('targetGoalName').value.trim();
+      var cost = parseFloat(document.getElementById('targetGoalCost').value) || 0;
+      var date = document.getElementById('targetGoalDate').value;
+
+      if (!name || cost <= 0) return alert('Please enter valid target goal information.');
+
+      activeTargetGoal = { name: name, cost: cost, date: date };
+      persist('pk_target_goal', activeTargetGoal);
+      alert('✨ Active target goal activated: ' + name);
+    }
+
+    function resetTargetGoal() {
+      activeTargetGoal = null;
+      targetGoalSavedAmt = 0;
+      persist('pk_target_goal', null);
+      persist('pk_target_saved', 0);
+      document.getElementById('targetGoalName').value = '';
+      document.getElementById('targetGoalCost').value = '';
+      document.getElementById('targetGoalDate').value = '';
+      document.getElementById('pacingResultBox').innerText = 'Enter a Target Amount and Target Deadline Date to view required pacing.';
+      updateTargetGoalProgressBar(0);
+    }
+
+    // Cutoff Leftover Allocator
+    function allocateCutoffLeftover() {
+      var amt = parseFloat(document.getElementById('cutoffActualLeftoverInput').value) || 0;
+      var mode = document.getElementById('leftoverSplitMode').value;
+      var resultBox = document.getElementById('leftoverAllocationResult');
+
+      if (amt <= 0) return alert('Please enter your leftover balance.');
+
+      var toSavings = 0;
+      var toDate = 0;
+
+      if (mode === '50-50') {
+        toSavings = amt * 0.50;
+        toDate = amt * 0.50;
+      } else if (mode === '70-30') {
+        toSavings = amt * 0.70;
+        toDate = amt * 0.30;
+      } else if (mode === 'all-savings') {
+        toSavings = amt;
+      } else if (mode === 'all-date') {
+        toDate = amt;
+      }
+
+      // Add to accumulated savings
+      var currSavings = parseFloat(document.getElementById('currentTotalSavingsInput').value) || 0;
+      var nextSavings = currSavings + toSavings;
+      document.getElementById('currentTotalSavingsInput').value = nextSavings;
+      updateSavingsGoalProgress();
+
+      // Add to date fund rollover
+      var currDateRollover = parseFloat(document.getElementById('dateRolloverInput').value) || 0;
+      document.getElementById('dateRolloverInput').value = currDateRollover + toDate;
+      calculateDatePlanner();
+
+      resultBox.style.display = 'block';
+      resultBox.innerHTML = '✨ Distributed ₱' + amt.toFixed(2) + ':<br>• <strong>+₱' + toSavings.toFixed(2) + '</strong> added to Long-Term Savings<br>• <strong>+₱' + toDate.toFixed(2) + '</strong> added to Quality Time / Date Rollover!';
+      document.getElementById('cutoffActualLeftoverInput').value = '';
+    }
+
+    // Long-Term Savings & Student Loan Trackers
+    function updateSavingsGoalProgress() {
+      var current = parseFloat(document.getElementById('currentTotalSavingsInput').value) || 0;
+      persist('pk_savings_current', current);
+
+      var loanTarget = 65000;
+      var masterTarget = 100000;
+
+      var loanPct = Math.min(100, Math.round((current / loanTarget) * 100));
+      var masterPct = Math.min(100, Math.round((current / masterTarget) * 100));
+
+      var loanLabel = document.getElementById('studentLoanPercentLabel');
+      var loanBar = document.getElementById('studentLoanProgressBar');
+      var masterLabel = document.getElementById('masterGoalPercentLabel');
+      var masterBar = document.getElementById('masterGoalProgressBar');
+
+      if (loanLabel) loanLabel.innerText = loanPct + '%';
+      if (loanBar) loanBar.style.width = loanPct + '%';
+      if (masterLabel) masterLabel.innerText = masterPct + '%';
+      if (masterBar) masterBar.style.width = masterPct + '%';
+    }
+
+// Register Offline Service Worker for GitHub Pages
+    if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('./sw.js')
+          .then(function(reg) {
+            console.log('Little Life Compass is offline-ready! ✨ Scope:', reg.scope);
+          })
+          .catch(function(err) {
+            console.log('SW registration error:', err);
+          });
+      });
+    }
+
+    // ==========================================
+    // 11. APPLICATION INITIALIZATION
+    // ==========================================
+    window.onload = function() {
+      renderNavMenuModules();
+      applyCutoffButtonsUI();
+      refreshHub();
+      syncBlueprintTables();
+
+      var schedSelect = document.getElementById('pagIbigScheduleSelect');
+      if (schedSelect) schedSelect.value = pagIbigSchedule;
+
+      renderBibleProgress();
+      renderFictionBooks();
+      renderTodayHabits();
+      renderAttendanceLogs();
+      renderShiftCalendar();
+      updateSimpleDebtSummary();
+
+      var todayStr = getTodayKey();
+      var expDateInput = document.getElementById('expenseDateInput');
+      var attDateInput = document.getElementById('attendDateInput');
+      if (expDateInput) expDateInput.value = todayStr;
+      if (attDateInput) attDateInput.value = todayStr;
+    };
+  </script>
+</body>
+</html>
